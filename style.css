@@ -32,6 +32,19 @@ body {
 .navbar-brand {
     font-size: 1.8rem;
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1);
 }
 
 .nav-link {
@@ -340,6 +353,10 @@ footer a:hover {
 
     .navbar-brand {
         font-size: 1.4rem;
+    }
+    
+    .navbar-brand img {
+        height: 35px;
     }
 
     #carouselPrincipal {
