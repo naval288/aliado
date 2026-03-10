@@ -1,0 +1,67 @@
+🚀 INÍCIO RÁPIDO - Site Aliado
+================================
+
+Para visualizar o site agora mesmo:
+
+1️⃣ Opção Simples (Navegador)
+   - Abra a pasta 'aliado'
+   - Clique duas vezes em 'index.html'
+   - Pronto! O site abrirá no navegador
+
+2️⃣ Opção com Servidor Local (Recomendado)
+
+   No PowerShell, dentro da pasta 'aliado':
+   
+   python -m http.server 8000
+   
+   Depois acesse: http://localhost:8000
+
+3️⃣ Opção VS Code Live Server
+   - Instale a extensão "Live Server"
+   - Clique com botão direito em 'index.html'
+   - Selecione "Open with Live Server"
+
+---
+
+✅ O QUE JÁ ESTÁ FUNCIONANDO:
+
+✓ Design responsivo completo
+✓ Carrossel automático de imagens
+✓ Animações suaves
+✓ Menu de navegação
+✓ Seção de cursos
+✓ Seção de vídeos
+✓ Informações de contato
+✓ Links para redes sociais
+✓ Aviso de cookies
+✓ Easter egg (código Konami: ↑↑↓↓←→←→BA)
+
+---
+
+📝 PRÓXIMOS PASSOS:
+
+1. Personalize os textos (edite index.html)
+2. Adicione suas próprias imagens (veja img/README.md)
+3. Configure links de redes sociais
+4. Atualize número de WhatsApp e e-mail
+5. Substitua IDs dos vídeos do YouTube
+
+---
+
+📞 CONTATOS PARA ATUALIZAR:
+
+WhatsApp: Linha 210 do index.html
+E-mail: Linha 220 do index.html
+Redes Sociais: Linhas 231-243 do index.html
+
+---
+
+🎨 PERSONALIZAÇÃO:
+
+Cores: Edite style.css
+Textos: Edite index.html
+Funcionalidades: Edite script.js
+
+---
+
+Slogan: "Aliado aqui você não fica juruna!" 🎓

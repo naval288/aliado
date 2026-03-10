@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulados - Aliado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .option-btn:hover {
+            border-color: #0d6efd;
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .option-btn.selected {
+            border-color: #0d6efd;
+            background: #e7f3ff;
+        }
+        
+        .option-btn.correct {
+            border-color: #198754;
+            background: #d1e7dd;
+        }
+        
+        .option-btn.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .timer {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .progress-bar-custom {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .subject-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            border-color: #0d6efd;
+        }
+        
+        .subject-card.active {
+            border-color: #0d6efd;
+            background: #e7f3ff;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .score-circle h1 {
+            color: #667eea;
+            font-size: 4rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>ALIADO
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="simulados.html">Simulados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-warning btn-sm ms-2" href="#login">Entrar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Timer -->
+    <div class="timer" id="timer" style="display: none;">
+        <i class="fas fa-clock text-primary me-2"></i>
+        <span id="timeDisplay" class="fw-bold">30:00</span>
+    </div>
+
+    <!-- Main Content -->
+    <div style="margin-top: 80px; min-height: 100vh; background: #f8f9fa; padding: 40px 0;">
+        <div class="container">
+            
+            <!-- Tela de Seleção -->
+            <div id="selectionScreen">
+                <h1 class="text-center mb-4 fw-bold">Simulados Online</h1>
+                <p class="text-center text-muted mb-5">Escolha uma matéria e teste seus conhecimentos</p>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card subject-card h-100 shadow-sm" onclick="startSimulado('portugues')">
+                            <div class="card-body text-center">
+                                <i class="fas fa-book fa-4x text-primary mb-3"></i>
+                                <h4>Português</h4>
+                                <p class="text-muted">10 questões • 30 minutos</p>
+                                <button class="btn btn-primary">Iniciar Simulado</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card subject-card h-100 shadow-sm" onclick="startSimulado('matematica')">
+                            <div class="card-body text-center">
+                                <i class="fas fa-calculator fa-4x text-success mb-3"></i>
+                                <h4>Matemática</h4>
+                                <p class="text-muted">10 questões • 30 minutos</p>
+                                <button class="btn btn-success">Iniciar Simulado</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="card subject-card h-100 shadow-sm" onclick="startSimulado('conhecimentos')">
+                            <div class="card-body text-center">
+                                <i class="fas fa-globe-americas fa-4x text-warning mb-3"></i>
+                                <h4>História e Geografia</h4>
+                                <p class="text-muted">10 questões • 30 minutos</p>
+                                <button class="btn btn-warning">Iniciar Simulado</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tela de Simulado -->
+            <div id="simuladoScreen" style="display: none;">
+                <div class="mb-4">
+                    <h3 id="simuladoTitle" class="fw-bold"></h3>
+                    <div class="progress-bar-custom">
+                        <div class="progress-fill" id="progressBar"></div>
+                    </div>
+                    <p class="text-muted">Questão <span id="currentQuestion">1</span> de <span id="totalQuestions">10</span></p>
+                </div>
+
+                <div id="questionContainer"></div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button class="btn btn-outline-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
+                        <i class="fas fa-arrow-left me-2"></i>Anterior
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+                        Próxima<i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                    <button class="btn btn-success" id="finishBtn" onclick="finishSimulado()" style="display: none;">
+                        <i class="fas fa-check me-2"></i>Finalizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tela de Resultado -->
+            <div id="resultScreen" style="display: none;">
+                <div class="result-card">
+                    <h2 class="mb-4">Simulado Concluído!</h2>
+                    <div class="score-circle">
+                        <h1 id="scorePercent">0%</h1>
+                    </div>
+                    <h3>Você acertou <span id="correctCount">0</span> de <span id="totalCount">10</span> questões</h3>
+                    <p class="mt-3 mb-4" id="motivationalMessage"></p>
+                    
+                    <div class="row mt-5">
+                        <div class="col-md-4">
+                            <h4><i class="fas fa-check-circle me-2"></i><span id="correctDisplay">0</span></h4>
+                            <p>Acertos</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4><i class="fas fa-times-circle me-2"></i><span id="wrongDisplay">0</span></h4>
+                            <p>Erros</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4><i class="fas fa-clock me-2"></i><span id="timeUsed">00:00</span></h4>
+                            <p>Tempo Usado</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <button class="btn btn-light btn-lg me-3" onclick="reviewAnswers()">
+                            <i class="fas fa-eye me-2"></i>Revisar Respostas
+                        </button>
+                        <button class="btn btn-outline-light btn-lg" onclick="location.reload()">
+                            <i class="fas fa-redo me-2"></i>Novo Simulado
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2026 Aliado - Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="index.html" class="text-white text-decoration-none">Voltar ao Início</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="simulados.js"></script>
+</body>
+</html>
