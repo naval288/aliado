@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aulas - Aliado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .sidebar {
+            background: #f5f9f2;
+            min-height: calc(100vh - 76px);
+            border-right: 2px solid #4a7c17;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .module-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .module-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .module-item.active {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c17 100%);
+            color: white;
+        }
+
+        .module-item.active h6,
+        .module-item.active p {
+            color: white !important;
+        }
+
+        .lesson-item {
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-item:hover {
+            background: rgba(74, 124, 23, 0.1);
+            border-left-color: #4a7c17;
+        }
+
+        .lesson-item.active {
+            background: rgba(74, 124, 23, 0.2);
+            border-left-color: #2d5016;
+            font-weight: bold;
+        }
+
+        .lesson-item.completed {
+            color: #28a745;
+        }
+
+        .lesson-item.completed i {
+            color: #28a745;
+        }
+
+        .video-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .lesson-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-selector {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-btn {
+            margin: 5px;
+            padding: 12px 25px;
+            border: 2px solid #4a7c17;
+            background: white;
+            color: #2d5016;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .course-btn:hover {
+            background: #4a7c17;
+            color: white;
+        }
+
+        .course-btn.active {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c17 100%);
+            color: white;
+            border-color: #2d5016;
+        }
+
+        .progress-bar-custom {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c17 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .lesson-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                min-height: auto;
+                border-right: none;
+                border-bottom: 2px solid #4a7c17;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: url('img/carousel/4.jpg') center/cover !important; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(45, 80, 22, 0.75); z-index: 1;"></div>
+        <div class="container" style="position: relative; z-index: 2;">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/carousel/5.png" alt="Ícone Aliado" class="navbar-icon"> ALIADO
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="aulas.html">Aulas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="simulados.html">Simulados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contato">Contato</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Curso Selector -->
+    <div class="container-fluid" style="margin-top: 100px;">
+        <div class="container">
+            <div class="course-selector">
+                <h3 class="text-center mb-3"><i class="fas fa-graduation-cap me-2"></i>Selecione seu Curso</h3>
+                <div class="text-center">
+                    <button class="btn course-btn active" data-course="soldado-cabo">
+                        <i class="fas fa-star me-2"></i>Soldado para Cabo
+                    </button>
+                    <button class="btn course-btn" data-course="cabo-sargento">
+                        <i class="fas fa-medal me-2"></i>Cabo para Sargento
+                    </button>
+                </div>
+                <div class="progress-bar-custom mt-3">
+                    <div class="progress-fill" id="courseProgress" style="width: 0%"></div>
+                </div>
+                <p class="text-center text-muted mt-2 mb-0">
+                    <span id="progressText">0% concluído</span> • 
+                    <span id="lessonsCompleted">0</span> de <span id="totalLessons">0</span> aulas
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="container-fluid mb-5">
+        <div class="row">
+            <!-- Sidebar com Módulos -->
+            <div class="col-lg-3 col-md-4">
+                <div class="sidebar" id="modulesList">
+                    <!-- Módulos serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Área de Vídeo e Conteúdo -->
+            <div class="col-lg-9 col-md-8">
+                <div class="container">
+                    <!-- Vídeo da Aula -->
+                    <div class="video-container">
+                        <h2 id="lessonTitle">Selecione uma aula</h2>
+                        <hr>
+                        <div class="video-wrapper" id="videoContainer">
+                            <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                                <div class="text-center">
+                                    <i class="fas fa-play-circle fa-5x mb-3"></i>
+                                    <p>Selecione uma aula para começar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conteúdo da Aula -->
+                    <div class="lesson-content">
+                        <h4><i class="fas fa-book-open me-2"></i>Sobre esta aula</h4>
+                        <div id="lessonDescription">
+                            <p class="text-muted">Selecione uma aula ao lado para ver o conteúdo completo.</p>
+                        </div>
+
+                        <hr>
+
+                        <h5><i class="fas fa-file-download me-2"></i>Material de Apoio</h5>
+                        <div id="lessonMaterials">
+                            <p class="text-muted">Nenhum material disponível para esta aula.</p>
+                        </div>
+
+                        <!-- Navegação entre aulas -->
+                        <div class="lesson-navigation">
+                            <button class="btn btn-outline-primary" id="prevLesson" disabled>
+                                <i class="fas fa-chevron-left me-2"></i>Aula Anterior
+                            </button>
+                            <button class="btn btn-primary" id="markComplete">
+                                <i class="fas fa-check me-2"></i>Marcar como Concluída
+                            </button>
+                            <button class="btn btn-outline-primary" id="nextLesson">
+                                Próxima Aula<i class="fas fa-chevron-right ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Aliado - Preparatório Militar. Todos os direitos reservados.</p>
+            <p class="mb-0"><small>Aliado, aqui você não fica juruna!</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="aulas.js"></script>
+</body>
+</html>
