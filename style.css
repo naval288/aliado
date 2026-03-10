@@ -18,6 +18,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    background-color: #e8f0e3;
 }
 
 /* Navbar */
@@ -60,6 +61,11 @@ body {
 
 .bg-primary {
     background: linear-gradient(135deg, #2d5016 0%, #4a7c17 100%) !important;
+}
+
+/* Classe para fundo verde claro */
+.bg-light-green {
+    background: #d4e5cd !important;
 }
 
 /* Carrossel */
@@ -115,12 +121,12 @@ body {
 
 /* Estatísticas */
 .stats-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #d4e5cd 0%, #c8dcc0 100%);
 }
 
 .stat-card {
     padding: 30px;
-    background: white;
+    background: #f5f9f2;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -145,6 +151,7 @@ body {
     border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
+    background: #f5f9f2;
 }
 
 .curso-card:hover {
@@ -179,6 +186,7 @@ body {
     border-radius: 15px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #f5f9f2;
 }
 
 .video-card:hover {
@@ -187,6 +195,10 @@ body {
 }
 
 /* Sobre */
+#sobre {
+    background: #f5f9f2;
+}
+
 #sobre img {
     transition: transform 0.3s ease;
 }
