@@ -295,31 +295,56 @@ const coursesData = {
 };
 
 // Estado da aplicação
-let currentCourse = 'soldado-cabo';
+let currentCourse = null; // Será definido pelo acesso do usuário
 let currentLesson = null;
 let completedLessons = new Set();
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
+    // Verificar acesso do usuário
+    const userCourse = localStorage.getItem('aliadoCourse');
+    
+    if (!userCourse) {
+        // Usuário não tem acesso, redirecionar para login
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    // Definir o curso do usuário
+    currentCourse = userCourse;
+    
+    // Atualizar título do curso
+    updateCourseTitle();
+    
+    // Carregar progresso e renderizar
     loadProgress();
     renderModules();
     setupEventListeners();
 });
 
+// Atualizar título do curso
+function updateCourseTitle() {
+    const course = coursesData[currentCourse];
+    const titleElement = document.getElementById('courseTitle');
+    
+    if (titleElement) {
+        titleElement.textContent = course.name;
+    }
+}
+
 // Configurar event listeners
 function setupEventListeners() {
-    // Seleção de curso
-    document.querySelectorAll('.course-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.course-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentCourse = this.dataset.course;
-            currentLesson = null;
-            renderModules();
-            updateProgress();
-            clearLessonView();
+    // Botão de logout
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) {
+        btnLogout.addEventListener('click', function() {
+            if (confirm('Tem certeza que deseja sair? Seu progresso será salvo.')) {
+                localStorage.removeItem('aliadoCourse');
+                localStorage.removeItem('aliadoAccessCode');
+                window.location.href = 'login.html';
+            }
         });
-    });
+    }
 
     // Navegação entre aulas
     document.getElementById('prevLesson').addEventListener('click', navigateToPrev);
