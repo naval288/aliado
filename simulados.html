@@ -28,14 +28,14 @@
         }
         
         .option-btn:hover {
-            border-color: #0d6efd;
+            border-color: #2d5016;
             background: #f8f9fa;
             transform: translateX(5px);
         }
         
         .option-btn.selected {
-            border-color: #0d6efd;
-            background: #e7f3ff;
+            border-color: #2d5016;
+            background: #d4edda;
         }
         
         .option-btn.correct {
@@ -68,7 +68,7 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+            background: linear-gradient(90deg, #2d5016, #4a7c17);
             border-radius: 10px;
             transition: width 0.3s ease;
         }
@@ -81,12 +81,12 @@
         
         .subject-card:hover {
             transform: translateY(-5px);
-            border-color: #0d6efd;
+            border-color: #2d5016;
         }
         
         .subject-card.active {
-            border-color: #0d6efd;
-            background: #e7f3ff;
+            border-color: #2d5016;
+            background: #d4edda;
         }
         
         .result-card {
@@ -118,7 +118,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
                 <i class="fas fa-graduation-cap me-2"></i>ALIADO
@@ -144,7 +144,7 @@
 
     <!-- Timer -->
     <div class="timer" id="timer" style="display: none;">
-        <i class="fas fa-clock text-primary me-2"></i>
+        <i class="fas fa-clock text-success me-2"></i>
         <span id="timeDisplay" class="fw-bold">30:00</span>
     </div>
 
@@ -161,10 +161,10 @@
                     <div class="col-md-4 mb-4">
                         <div class="card subject-card h-100 shadow-sm" onclick="startSimulado('portugues')">
                             <div class="card-body text-center">
-                                <i class="fas fa-book fa-4x text-primary mb-3"></i>
+                                <i class="fas fa-book fa-4x text-success mb-3"></i>
                                 <h4>Português</h4>
                                 <p class="text-muted">10 questões • 30 minutos</p>
-                                <button class="btn btn-primary">Iniciar Simulado</button>
+                                <button class="btn btn-success">Iniciar Simulado</button>
                             </div>
                         </div>
                     </div>
@@ -209,7 +209,7 @@
                     <button class="btn btn-outline-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
                         <i class="fas fa-arrow-left me-2"></i>Anterior
                     </button>
-                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+                    <button class="btn btn-success" id="nextBtn" onclick="nextQuestion()">
                         Próxima<i class="fas fa-arrow-right ms-2"></i>
                     </button>
                     <button class="btn btn-success" id="finishBtn" onclick="finishSimulado()" style="display: none;">
