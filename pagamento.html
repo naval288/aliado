@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento - Aliado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .payment-container {
+            min-height: 100vh;
+            padding: 110px 20px 40px;
+            background: linear-gradient(180deg, #dfead8 0%, #f3f7f1 50%, #ffffff 100%);
+        }
+
+        .payment-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+            padding: 30px;
+        }
+
+        .plan-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #e8f4df;
+            color: #2d5016;
+            border: 1px solid #bdd5ac;
+            border-radius: 30px;
+            padding: 8px 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #2d5016;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        .method-card {
+            border: 1px solid #dbe5d3;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #fbfdf9;
+        }
+
+        .btn-pay {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #009ee3 0%, #007cb6 100%);
+            color: white;
+            transition: all 0.25s ease;
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 126, 182, 0.35);
+        }
+
+        .note {
+            background: #fff8dd;
+            border: 1px solid #f7e39a;
+            color: #7a5d00;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 14px;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: url('img/carousel/4.jpg') center/cover !important; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(45, 80, 22, 0.75); z-index: 1;"></div>
+        <div class="container" style="position: relative; z-index: 2;">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/carousel/5.png" alt="Ícone Aliado" class="navbar-icon"> ALIADO
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#cursos">Cursos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="payment-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="payment-card">
+                        <div class="text-center mb-4">
+                            <span class="plan-badge" id="planBadge"><i class="fas fa-crown"></i>Plano Premium</span>
+                            <h1 class="mb-2">Ativar assinatura</h1>
+                            <p class="subtitle">Página pronta para integração com Mercado Pago. Sem API por enquanto.</p>
+                        </div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h4 class="mb-2" id="planTitle">Plano selecionado</h4>
+                                <div class="price" id="planPrice">R$ 0,00</div>
+                                <p class="text-muted" id="planPeriod">pagamento unico</p>
+
+                                <div id="planFeatures"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5 class="mb-3">Formas de pagamento</h5>
+
+                                <div class="method-card">
+                                    <i class="fas fa-qrcode text-primary me-2"></i>
+                                    Pix (aprovação rápida)
+                                </div>
+
+                                <div class="method-card">
+                                    <i class="fas fa-credit-card text-primary me-2"></i>
+                                    Cartão de crédito
+                                </div>
+
+                                <div class="method-card">
+                                    <i class="fas fa-barcode text-primary me-2"></i>
+                                    Boleto bancário
+                                </div>
+
+                                <button class="btn-pay" id="btnMp" type="button">
+                                    <i class="fas fa-wallet me-2"></i>Pagar com Mercado Pago
+                                </button>
+
+                                <div class="note">
+                                    Integração de pagamento ainda não ativada. Esta tela está pronta para layout e fluxo.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2026 Aliado - Preparatório Militar. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const plans = {
+            'soldado-cabo': {
+                badge: 'Curso Soldado para Cabo',
+                title: 'Soldado para Cabo',
+                price: 'R$ 269,90',
+                period: 'pagamento unico',
+                features: [
+                    'Sem mensalidade',
+                    'Acesso até a data da prova',
+                    'Simulados exclusivos',
+                    'Material atualizado',
+                    'Parcele em até 12x'
+                ]
+            },
+            'cabo-sargento': {
+                badge: 'Curso Cabo para Sargento',
+                title: 'Cabo para Sargento',
+                price: 'R$ 349,90',
+                period: 'pagamento unico',
+                features: [
+                    'Sem mensalidade',
+                    'Acesso até a data da prova',
+                    'Videoaulas completas',
+                    'Apostilas PDF',
+                    'Parcele em até 12x'
+                ]
+            }
+        };
+
+        function renderPlan() {
+            const params = new URLSearchParams(window.location.search);
+            const planKey = params.get('plano') || 'soldado-cabo';
+            const plan = plans[planKey] || plans['soldado-cabo'];
+
+            document.getElementById('planBadge').innerHTML = `<i class="fas fa-crown"></i>${plan.badge}`;
+            document.getElementById('planTitle').textContent = plan.title;
+            document.getElementById('planPrice').textContent = plan.price;
+            document.getElementById('planPeriod').textContent = plan.period;
+
+            const featureHtml = plan.features
+                .map(item => `<div class="feature-item"><i class="fas fa-check-circle text-success"></i>${item}</div>`)
+                .join('');
+            document.getElementById('planFeatures').innerHTML = featureHtml;
+        }
+
+        renderPlan();
+
+        document.getElementById('btnMp').addEventListener('click', function () {
+            alert('Integração Mercado Pago ainda não ativada.');
+        });
+    </script>
+</body>
+</html>

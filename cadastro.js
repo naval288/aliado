@@ -1,7 +1,11 @@
 (function () {
     const form = document.getElementById('registerForm');
-    const btnGoogle = document.getElementById('btnGoogle');
     const feedback = document.getElementById('feedback');
+    const btnRegister = document.getElementById('btnRegister');
+    const supabaseClient = createSupabaseClient();
+    const COOLDOWN_KEY = 'aliadoSignupCooldownUntil';
+    let isSubmitting = false;
+    let cooldownTimer = null;
 
     function showFeedback(message, type) {
         feedback.classList.remove('d-none', 'alert-danger', 'alert-success', 'alert-warning');
@@ -13,107 +17,212 @@
         return email.trim().toLowerCase();
     }
 
-    function getUsers() {
-        const raw = localStorage.getItem('aliadoUsers');
-        if (!raw) return [];
+    function normalizeUsername(username) {
+        return username.trim().toLowerCase();
+    }
 
-        try {
-            const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) ? parsed : [];
-        } catch {
-            return [];
+    function normalizePhone(phone) {
+        return phone.replace(/\D/g, '');
+    }
+
+    function createSupabaseClient() {
+        const config = window.SUPABASE_CONFIG || {};
+        if (!window.supabase || !config.url || !config.anonKey) {
+            return null;
         }
+
+        return window.supabase.createClient(config.url, config.anonKey);
     }
 
-    function saveUsers(users) {
-        localStorage.setItem('aliadoUsers', JSON.stringify(users));
-    }
+    function saveCurrentUser(user) {
+        if (!user) return;
 
-    function userExists(email, users) {
-        return users.some(user => user.email === email);
-    }
-
-    function createLocalUser({ fullName, email, provider }) {
-        return {
-            id: crypto.randomUUID(),
-            fullName,
-            email,
-            provider,
+        const payload = {
+            id: user.id,
+            email: user.email,
+            fullName: (user.user_metadata && user.user_metadata.full_name) || user.email,
+            username: (user.user_metadata && user.user_metadata.username) || '',
+            phone: (user.user_metadata && user.user_metadata.phone) || '',
+            provider: 'email',
             subscriptionStatus: 'inativa',
-            createdAt: new Date().toISOString()
+            isPaid: false,
+            plan: 'free'
         };
+
+        localStorage.setItem('aliadoCurrentUser', JSON.stringify(payload));
+        localStorage.removeItem('aliadoCourse');
     }
 
-    form.addEventListener('submit', function (event) {
+    function setButtonState(disabled, text) {
+        if (!btnRegister) return;
+        btnRegister.disabled = disabled;
+        btnRegister.innerHTML = `<i class="fas fa-check-circle me-2"></i>${text}`;
+    }
+
+    function startCooldown(seconds) {
+        const until = Date.now() + seconds * 1000;
+        localStorage.setItem(COOLDOWN_KEY, String(until));
+        applyCooldownFromStorage();
+    }
+
+    function applyCooldownFromStorage() {
+        const raw = localStorage.getItem(COOLDOWN_KEY);
+        const until = raw ? Number(raw) : 0;
+
+        if (!until || Number.isNaN(until) || until <= Date.now()) {
+            localStorage.removeItem(COOLDOWN_KEY);
+            if (!isSubmitting) {
+                setButtonState(false, 'Criar conta');
+            }
+            if (cooldownTimer) {
+                clearInterval(cooldownTimer);
+                cooldownTimer = null;
+            }
+            return;
+        }
+
+        if (cooldownTimer) {
+            clearInterval(cooldownTimer);
+        }
+
+        cooldownTimer = setInterval(() => {
+            const remaining = Math.ceil((until - Date.now()) / 1000);
+            if (remaining <= 0) {
+                clearInterval(cooldownTimer);
+                cooldownTimer = null;
+                localStorage.removeItem(COOLDOWN_KEY);
+                if (!isSubmitting) {
+                    setButtonState(false, 'Criar conta');
+                }
+                return;
+            }
+
+            setButtonState(true, `Aguarde ${remaining}s`);
+        }, 250);
+    }
+
+    applyCooldownFromStorage();
+
+    form.addEventListener('submit', async function (event) {
         event.preventDefault();
 
+        const cooldownUntil = Number(localStorage.getItem(COOLDOWN_KEY) || 0);
+        if (cooldownUntil > Date.now()) {
+            const seconds = Math.ceil((cooldownUntil - Date.now()) / 1000);
+            showFeedback(`Aguarde ${seconds}s antes de tentar novo cadastro.`, 'warning');
+            return;
+        }
+
+        if (isSubmitting) {
+            return;
+        }
+
+        isSubmitting = true;
+        setButtonState(true, 'Criando...');
+
+        const username = normalizeUsername(document.getElementById('username').value);
         const fullName = document.getElementById('fullName').value.trim();
+        const phone = normalizePhone(document.getElementById('phone').value);
         const email = normalizeEmail(document.getElementById('email').value);
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         const acceptTerms = document.getElementById('acceptTerms').checked;
 
-        if (!fullName || !email || !password || !confirmPassword) {
+        if (!username || !fullName || !phone || !email || !password || !confirmPassword) {
             showFeedback('Preencha todos os campos para criar sua conta.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
+            return;
+        }
+
+        if (username.length < 3) {
+            showFeedback('O usuário deve ter no mínimo 3 caracteres.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
+            return;
+        }
+
+        if (phone.length < 10) {
+            showFeedback('Digite um telefone válido com DDD.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
             return;
         }
 
         if (password.length < 8) {
             showFeedback('A senha deve ter no mínimo 8 caracteres.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
             return;
         }
 
         if (password !== confirmPassword) {
             showFeedback('A confirmação de senha não confere.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
             return;
         }
 
         if (!acceptTerms) {
             showFeedback('Você precisa aceitar os termos para continuar.', 'warning');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
             return;
         }
 
-        const users = getUsers();
-        if (userExists(email, users)) {
-            showFeedback('Já existe um cadastro com este e-mail.', 'danger');
+        if (!supabaseClient) {
+            showFeedback('Configure o Supabase em supabase-config.js antes de cadastrar.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
             return;
         }
 
-        const user = createLocalUser({ fullName, email, provider: 'email' });
-        users.push(user);
-        saveUsers(users);
+        const { data, error } = await supabaseClient.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    full_name: fullName,
+                    username,
+                    phone
+                }
+            }
+        });
 
-        // Somente para fase inicial: guarda sessão local e redireciona.
-        localStorage.setItem('aliadoCurrentUser', JSON.stringify(user));
+        if (error) {
+            if (/rate limit/i.test(error.message || '')) {
+                showFeedback('Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente.', 'warning');
+                isSubmitting = false;
+                startCooldown(60);
+                return;
+            }
 
-        showFeedback('Cadastro realizado com sucesso! Redirecionando para o acesso...', 'success');
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 1200);
-    });
-
-    btnGoogle.addEventListener('click', function () {
-        const users = getUsers();
-        const googleEmail = 'usuario.google@exemplo.com';
-
-        if (userExists(googleEmail, users)) {
-            const existingUser = users.find(user => user.email === googleEmail);
-            localStorage.setItem('aliadoCurrentUser', JSON.stringify(existingUser));
-            showFeedback('Login com Google simulado. Conecte ao Supabase OAuth na próxima etapa.', 'success');
-        } else {
-            const user = createLocalUser({
-                fullName: 'Usuário Google',
-                email: googleEmail,
-                provider: 'google'
-            });
-            users.push(user);
-            saveUsers(users);
-            localStorage.setItem('aliadoCurrentUser', JSON.stringify(user));
-            showFeedback('Conta Google simulada criada. Próximo passo: integrar OAuth real.', 'success');
+            showFeedback(error.message || 'Erro ao cadastrar. Tente novamente.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
+            return;
         }
 
+        if (data && data.user) {
+            saveCurrentUser(data.user);
+        }
+
+        if (data && !data.session) {
+            showFeedback('Cadastro criado. Verifique seu e-mail para confirmar a conta e depois entre.', 'success');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1200);
+            return;
+        }
+
+        showFeedback('Cadastro realizado com sucesso! Redirecionando para a página inicial...', 'success');
+        isSubmitting = false;
+        setButtonState(false, 'Criar conta');
         setTimeout(() => {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }, 1200);
     });
+
 })();

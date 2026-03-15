@@ -320,6 +320,27 @@ let timerInterval;
 let timeLimit = 30 * 60; // 30 minutos em segundos
 let timeRemaining = timeLimit;
 
+document.addEventListener('DOMContentLoaded', function () {
+    const currentUserRaw = localStorage.getItem('aliadoCurrentUser');
+    let currentUser = null;
+    if (currentUserRaw) {
+        try {
+            currentUser = JSON.parse(currentUserRaw);
+        } catch {
+            currentUser = null;
+        }
+    }
+    if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    if (!currentUser.isPaid) {
+        alert('Seu acesso aos simulados ainda nao foi liberado.');
+        window.location.href = 'index.html';
+    }
+});
+
 // Iniciar simulado
 function startSimulado(subject) {
     currentSubject = subject;

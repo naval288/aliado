@@ -298,15 +298,35 @@ const coursesData = {
 let currentCourse = null; // Será definido pelo acesso do usuário
 let currentLesson = null;
 let completedLessons = new Set();
+let expandedModuleId = null;
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar acesso do usuário
+    const currentUserRaw = localStorage.getItem('aliadoCurrentUser');
+    let currentUser = null;
+    if (currentUserRaw) {
+        try {
+            currentUser = JSON.parse(currentUserRaw);
+        } catch {
+            currentUser = null;
+        }
+    }
     const userCourse = localStorage.getItem('aliadoCourse');
     
-    if (!userCourse) {
-        // Usuário não tem acesso, redirecionar para login
+    if (!currentUser) {
         window.location.href = 'login.html';
+        return;
+    }
+
+    if (!currentUser.isPaid) {
+        alert('Seu acesso ainda nao foi liberado. Entre em contato para confirmar o pagamento.');
+        window.location.href = 'index.html';
+        return;
+    }
+
+    if (!userCourse || !coursesData[userCourse]) {
+        alert('Seu curso ainda nao foi vinculado. Entre em contato com o suporte.');
+        window.location.href = 'index.html';
         return;
     }
     
@@ -341,6 +361,7 @@ function setupEventListeners() {
             if (confirm('Tem certeza que deseja sair? Seu progresso será salvo.')) {
                 localStorage.removeItem('aliadoCourse');
                 localStorage.removeItem('aliadoAccessCode');
+                localStorage.removeItem('aliadoCurrentUser');
                 window.location.href = 'login.html';
             }
         });
@@ -350,20 +371,50 @@ function setupEventListeners() {
     document.getElementById('prevLesson').addEventListener('click', navigateToPrev);
     document.getElementById('nextLesson').addEventListener('click', navigateToNext);
     document.getElementById('markComplete').addEventListener('click', markAsComplete);
+
+    // Clique em módulo/aula com delegação de evento
+    const modulesList = document.getElementById('modulesList');
+    if (modulesList) {
+        modulesList.addEventListener('click', function (event) {
+            const toggleButton = event.target.closest('[data-module-toggle]');
+            if (toggleButton) {
+                const moduleId = toggleButton.dataset.moduleToggle;
+                expandedModuleId = expandedModuleId === moduleId ? null : moduleId;
+                renderModules();
+                return;
+            }
+
+            const lessonItem = event.target.closest('.lesson-item');
+            if (lessonItem) {
+                const moduleId = lessonItem.dataset.module;
+                const lessonId = lessonItem.dataset.lesson;
+                loadLesson(moduleId, lessonId);
+            }
+        });
+    }
 }
 
 // Renderizar módulos
 function renderModules() {
     const modulesList = document.getElementById('modulesList');
     const course = coursesData[currentCourse];
+
+    if (currentLesson && currentLesson.moduleId) {
+        expandedModuleId = currentLesson.moduleId;
+    }
     
     modulesList.innerHTML = course.modules.map(module => `
-        <div class="module-item" data-module="${module.id}">
-            <h6><i class="fas ${module.icon} me-2"></i>${module.name}</h6>
-            <p class="text-muted mb-2"><small>${module.lessons.length} aulas</small></p>
+        <div class="module-item ${expandedModuleId === module.id ? 'expanded' : ''}" data-module="${module.id}">
+            <button class="module-header" data-module-toggle="${module.id}" type="button" aria-expanded="${expandedModuleId === module.id}">
+                <div>
+                    <h6 class="mb-1"><i class="fas ${module.icon} me-2"></i>${module.name}</h6>
+                    <p class="text-muted mb-0"><small>${module.lessons.length} aulas</small></p>
+                </div>
+                <i class="fas fa-chevron-down module-chevron"></i>
+            </button>
             <div class="lessons-list">
                 ${module.lessons.map((lesson, index) => `
-                    <div class="lesson-item ${completedLessons.has(currentCourse + '-' + lesson.id) ? 'completed' : ''}" 
+                    <div class="lesson-item ${completedLessons.has(currentCourse + '-' + lesson.id) ? 'completed' : ''} ${currentLesson && currentLesson.moduleId === module.id && currentLesson.lessonId === lesson.id ? 'active' : ''}" 
                          data-module="${module.id}" 
                          data-lesson="${lesson.id}">
                         <i class="fas ${completedLessons.has(currentCourse + '-' + lesson.id) ? 'fa-check-circle' : 'fa-play-circle'} me-2"></i>
@@ -374,15 +425,6 @@ function renderModules() {
             </div>
         </div>
     `).join('');
-
-    // Event listeners para as aulas
-    document.querySelectorAll('.lesson-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const moduleId = this.dataset.module;
-            const lessonId = this.dataset.lesson;
-            loadLesson(moduleId, lessonId);
-        });
-    });
 }
 
 // Carregar aula
@@ -507,11 +549,6 @@ function markAsComplete() {
     renderModules();
     updateProgress();
     updateNavigation();
-    
-    // Recarregar a aula atual para atualizar o estado
-    if (currentLesson) {
-        document.querySelector(`[data-module="${currentLesson.moduleId}"][data-lesson="${currentLesson.lessonId}"]`).classList.toggle('completed');
-    }
 }
 
 // Atualizar progresso
@@ -536,10 +573,10 @@ function updateProgress() {
 function clearLessonView() {
     document.getElementById('lessonTitle').textContent = 'Selecione uma aula';
     document.getElementById('videoContainer').innerHTML = `
-        <div class="d-flex align-items-center justify-content-center h-100 text-muted">
-            <div class="text-center">
+        <div class="video-placeholder">
+            <div>
                 <i class="fas fa-play-circle fa-5x mb-3"></i>
-                <p>Selecione uma aula para começar</p>
+                <p class="mb-0">Selecione uma aula para começar</p>
             </div>
         </div>
     `;

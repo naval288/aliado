@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso às Aulas - Aliado</title>
+    <title>Entrar - Aliado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,107 +13,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 100px 20px 40px;
         }
 
         .login-card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 36px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            max-width: 500px;
+            max-width: 520px;
             width: 100%;
         }
 
-        .course-option {
-            background: white;
-            border: 3px solid #e9ecef;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 15px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .course-option:hover {
-            transform: translateY(-5px);
-            border-color: #4a7c17;
-            box-shadow: 0 8px 25px rgba(74, 124, 23, 0.2);
-        }
-
-        .course-option.selected {
-            background: linear-gradient(135deg, #2d5016 0%, #4a7c17 100%);
-            border-color: #2d5016;
-            color: white;
-        }
-
-        .course-option.selected h4,
-        .course-option.selected p {
-            color: white !important;
-        }
-
-        .course-option i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .course-option:hover i {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .course-option.selected i {
-            color: #ffc107;
-        }
-
-        .access-code-section {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .access-code-section.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .btn-access {
+        .btn-login {
             background: linear-gradient(135deg, #2d5016 0%, #4a7c17 100%);
             border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 14px;
+            font-weight: 700;
             color: white;
             border-radius: 10px;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
-        .btn-access:hover {
+        .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(74, 124, 23, 0.4);
+            box-shadow: 0 8px 20px rgba(74, 124, 23, 0.35);
         }
 
-        .btn-access:disabled {
-            background: #ccc;
-            cursor: not-allowed;
+        .subtitle {
+            color: #6c757d;
+            margin-bottom: 24px;
         }
 
-        .info-box {
+        .small-note {
             background: rgba(45, 80, 22, 0.1);
             border-left: 4px solid #4a7c17;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.9rem;
+            color: #34495e;
+            margin-top: 16px;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: url('img/carousel/4.jpg') center/cover !important; position: relative;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(45, 80, 22, 0.75); z-index: 1;"></div>
         <div class="container" style="position: relative; z-index: 2;">
@@ -128,15 +72,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">Início</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="login.html">Aulas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="simulados.html">Simulados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html#contato">Contato</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -146,67 +81,51 @@
         <div class="login-card">
             <div class="text-center mb-4">
                 <i class="fas fa-lock text-primary" style="font-size: 3rem;"></i>
-                <h2 class="mt-3 mb-2">Acesso às Aulas</h2>
-                <p class="text-muted">Selecione o curso que você adquiriu</p>
+                <h2 class="mt-3 mb-2">Entrar na conta</h2>
+                <p class="subtitle">Digite seu e-mail e senha para acessar a plataforma.</p>
             </div>
 
-            <div id="courseSelection">
-                <div class="course-option" data-course="soldado-cabo">
-                    <i class="fas fa-star text-primary"></i>
-                    <h4 class="mb-2">Soldado para Cabo</h4>
-                    <p class="text-muted mb-0">Acesso às aulas do curso preparatório para Cabo</p>
-                    <p class="mt-2 mb-0"><strong>R$ 269,90</strong></p>
+            <div class="mb-4">
+                <div class="mb-3">
+                    <label for="loginEmail" class="form-label fw-semibold">E-mail</label>
+                    <input type="email" class="form-control form-control-lg" id="loginEmail" placeholder="Seu e-mail cadastrado">
                 </div>
-
-                <div class="course-option" data-course="cabo-sargento">
-                    <i class="fas fa-medal text-primary"></i>
-                    <h4 class="mb-2">Cabo para Sargento</h4>
-                    <p class="text-muted mb-0">Acesso às aulas do curso preparatório para Sargento</p>
-                    <p class="mt-2 mb-0"><strong>R$ 349,90</strong></p>
+                <div class="mb-3">
+                    <label for="loginPassword" class="form-label fw-semibold">Senha</label>
+                    <input type="password" class="form-control form-control-lg" id="loginPassword" placeholder="Sua senha">
                 </div>
-            </div>
-
-            <div class="access-code-section" id="accessCodeSection">
-                <hr>
-                <div class="form-group mb-3">
-                    <label for="accessCode" class="form-label fw-bold">
-                        <i class="fas fa-key me-2"></i>Código de Acesso
-                    </label>
-                    <input 
-                        type="text" 
-                        class="form-control form-control-lg" 
-                        id="accessCode" 
-                        placeholder="Digite seu código de acesso"
-                        maxlength="20"
-                    >
-                    <small class="text-muted">O código foi enviado para seu e-mail após a compra</small>
-                </div>
-
-                <div class="info-box">
-                    <i class="fas fa-info-circle me-2"></i>
-                    <small>
-                        <strong>Não recebeu seu código?</strong><br>
-                        Entre em contato pelo WhatsApp: <a href="https://wa.me/5511999999999">(11) 99999-9999</a>
-                    </small>
-                </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <button class="btn btn-access" id="btnAccess" disabled>
-                    <i class="fas fa-sign-in-alt me-2"></i>Acessar Aulas
+                <button class="btn-login" id="btnLoginAccount" type="button">
+                    <i class="fas fa-user-check me-2"></i>Entrar
                 </button>
+            </div>
+
+            <div id="loggedUserInfo" class="alert alert-success" style="display: none;">
+                <i class="fas fa-check-circle me-2"></i>
+                <span id="loggedUserText"></span>
             </div>
 
             <div class="text-center mt-3">
                 <small class="text-muted">
-                    Ainda não tem conta? <a href="cadastro.html">Criar cadastro</a><br>
-                    Ainda não comprou? <a href="index.html#cursos">Ver cursos disponíveis</a>
+                    Ainda não tem conta? <a href="cadastro.html">Criar cadastro</a>
                 </small>
+            </div>
+
+            <div class="text-center mt-2">
+                <button class="btn btn-link p-0" id="btnForgotPassword" type="button">Esqueci minha senha</button>
+            </div>
+
+            <div class="small-note">
+                Ao entrar, você volta para a página inicial e os menus de Aulas e Simulados são liberados no topo.
             </div>
 
             <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;">
                 <i class="fas fa-exclamation-triangle me-2"></i>
                 <span id="errorText"></span>
+            </div>
+
+            <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
+                <i class="fas fa-check-circle me-2"></i>
+                <span id="successText"></span>
             </div>
         </div>
     </div>
@@ -220,92 +139,186 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
     <script>
-        let selectedCourse = null;
+        const supabaseClient = createSupabaseClient();
 
-        // Códigos de acesso (em produção, isso seria validado no servidor)
-        const accessCodes = {
-            'soldado-cabo': ['SOLDADO2024', 'CABO123', 'DEMO-SC'],
-            'cabo-sargento': ['SARGENTO2024', 'SGT123', 'DEMO-CS']
-        };
+        function createSupabaseClient() {
+            const config = window.SUPABASE_CONFIG || {};
+            if (!window.supabase || !config.url || !config.anonKey) {
+                return null;
+            }
 
-        // Verificar se já tem acesso
+            return window.supabase.createClient(config.url, config.anonKey);
+        }
+
+        function getCurrentUser() {
+            const raw = localStorage.getItem('aliadoCurrentUser');
+            if (!raw) return null;
+
+            try {
+                return JSON.parse(raw);
+            } catch {
+                return null;
+            }
+        }
+
+        async function fetchAccessStatus(userId) {
+            const fallback = { isPaid: false, plan: 'free', course: null };
+            if (!supabaseClient) return fallback;
+
+            const { data, error } = await supabaseClient
+                .from('user_access')
+                .select('pago, plano, curso')
+                .eq('user_id', userId)
+                .maybeSingle();
+
+            if (error || !data) {
+                return fallback;
+            }
+
+            return {
+                isPaid: !!data.pago,
+                plan: data.plano || 'free',
+                course: data.curso || null
+            };
+        }
+
+        function renderLoggedUser() {
+            const currentUser = getCurrentUser();
+            const box = document.getElementById('loggedUserInfo');
+            const text = document.getElementById('loggedUserText');
+
+            if (!currentUser) {
+                box.style.display = 'none';
+                return;
+            }
+
+            text.textContent = `Conectado como ${currentUser.username || currentUser.fullName || currentUser.email}.`;
+            box.style.display = 'block';
+        }
+
         window.addEventListener('DOMContentLoaded', function() {
-            const savedAccess = localStorage.getItem('aliadoCourse');
-            if (savedAccess) {
-                // Usuário já tem acesso, redirecionar para aulas
-                window.location.href = 'aulas.html';
+            const currentUser = getCurrentUser();
+            if (currentUser) {
+                window.location.href = 'index.html';
             }
+
+            renderLoggedUser();
         });
 
-        // Seleção de curso
-        document.querySelectorAll('.course-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remover seleção anterior
-                document.querySelectorAll('.course-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                // Marcar como selecionado
-                this.classList.add('selected');
-                selectedCourse = this.dataset.course;
-                
-                // Mostrar seção de código
-                document.getElementById('accessCodeSection').classList.add('show');
-                document.getElementById('btnAccess').disabled = false;
-                document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('btnLoginAccount').addEventListener('click', async function() {
+            const emailInput = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const passwordInput = document.getElementById('loginPassword').value;
+
+            if (!emailInput || !passwordInput) {
+                showError('Digite e-mail e senha para entrar.');
+                return;
+            }
+
+            if (!supabaseClient) {
+                showError('Configure o Supabase em supabase-config.js antes de entrar.');
+                return;
+            }
+
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: emailInput,
+                password: passwordInput
             });
-        });
 
-        // Validar código de acesso
-        document.getElementById('btnAccess').addEventListener('click', function() {
-            const code = document.getElementById('accessCode').value.trim().toUpperCase();
-            
-            if (!selectedCourse) {
-                showError('Por favor, selecione um curso primeiro.');
+            if (error || !data || !data.user) {
+                if (error && /invalid login credentials/i.test(error.message || '')) {
+                    showError('E-mail ou senha inválidos. Se sua conta for antiga, crie novamente em Criar cadastro.');
+                    return;
+                }
+
+                showError((error && error.message) || 'Não foi possível entrar. Confira os dados.');
                 return;
             }
-            
-            if (!code) {
-                showError('Por favor, digite o código de acesso.');
-                return;
-            }
-            
-            // Validar código
-            if (accessCodes[selectedCourse].includes(code)) {
-                // Código válido! Salvar acesso
-                localStorage.setItem('aliadoCourse', selectedCourse);
-                localStorage.setItem('aliadoAccessCode', code);
-                
-                // Mostrar mensagem de sucesso e redirecionar
-                const btn = document.getElementById('btnAccess');
-                btn.innerHTML = '<i class="fas fa-check me-2"></i>Acesso Liberado!';
-                btn.classList.add('btn-success');
-                
-                setTimeout(() => {
-                    window.location.href = 'aulas.html';
-                }, 1000);
+
+            const accessStatus = await fetchAccessStatus(data.user.id);
+
+            const user = {
+                id: data.user.id,
+                email: data.user.email,
+                fullName: (data.user.user_metadata && data.user.user_metadata.full_name) || data.user.email,
+                username: (data.user.user_metadata && data.user.user_metadata.username) || '',
+                provider: 'email',
+                subscriptionStatus: accessStatus.isPaid ? 'ativa' : 'inativa',
+                isPaid: accessStatus.isPaid,
+                plan: accessStatus.plan,
+                course: accessStatus.course
+            };
+
+            localStorage.setItem('aliadoCurrentUser', JSON.stringify(user));
+            if (accessStatus.isPaid && accessStatus.course) {
+                localStorage.setItem('aliadoCourse', accessStatus.course);
             } else {
-                showError('Código de acesso inválido. Verifique e tente novamente.');
+                localStorage.removeItem('aliadoCourse');
+            }
+            renderLoggedUser();
+            document.getElementById('errorMessage').style.display = 'none';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 600);
+        });
+
+        document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('btnLoginAccount').click();
             }
         });
 
-        // Permitir Enter no campo de código
-        document.getElementById('accessCode').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('btnAccess').click();
+        document.getElementById('btnForgotPassword').addEventListener('click', async function() {
+            const emailInput = document.getElementById('loginEmail').value.trim().toLowerCase();
+
+            if (!emailInput) {
+                showError('Digite seu e-mail para receber o link de recuperação.');
+                return;
             }
+
+            if (!supabaseClient) {
+                showError('Configure o Supabase em supabase-config.js antes de recuperar senha.');
+                return;
+            }
+
+            const { error } = await supabaseClient.auth.resetPasswordForEmail(emailInput, {
+                redirectTo: window.location.origin + '/login.html'
+            });
+
+            if (error) {
+                showError(error.message || 'Não foi possível enviar recuperação de senha.');
+                return;
+            }
+
+            showSuccess('Link de recuperação enviado para seu e-mail.');
         });
 
         function showError(message) {
             const errorDiv = document.getElementById('errorMessage');
             const errorText = document.getElementById('errorText');
+            const successDiv = document.getElementById('successMessage');
             errorText.textContent = message;
             errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
             
             // Ocultar após 5 segundos
             setTimeout(() => {
                 errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            const errorDiv = document.getElementById('errorMessage');
+            successText.textContent = message;
+            successDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+
+            setTimeout(() => {
+                successDiv.style.display = 'none';
             }, 5000);
         }
     </script>

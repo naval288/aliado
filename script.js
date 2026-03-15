@@ -1,5 +1,10 @@
 // Inicialização quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    await syncUserFromSupabaseSession();
+    renderNavbarByAuth();
+    setupCoursePurchaseButtons();
+    lockVideosForGuests();
+
     // Mostrar aviso de cookies após 2 segundos
     setTimeout(showCookieNotice, 2000);
     
@@ -18,6 +23,180 @@ document.addEventListener('DOMContentLoaded', function() {
     // Contador animado nas estatísticas
     animateCounters();
 });
+
+function createSupabaseClient() {
+    const config = window.SUPABASE_CONFIG || {};
+    if (!window.supabase || !config.url || !config.anonKey) {
+        return null;
+    }
+
+    return window.supabase.createClient(config.url, config.anonKey);
+}
+
+async function syncUserFromSupabaseSession() {
+    const supabaseClient = createSupabaseClient();
+    if (!supabaseClient) return;
+
+    const { data, error } = await supabaseClient.auth.getUser();
+    if (error || !data || !data.user) {
+        return;
+    }
+
+    const accessStatus = await fetchAccessStatus(supabaseClient, data.user.id);
+
+    const user = {
+        id: data.user.id,
+        email: data.user.email,
+        fullName: (data.user.user_metadata && data.user.user_metadata.full_name) || data.user.email,
+        username: (data.user.user_metadata && data.user.user_metadata.username) || '',
+        provider: 'email',
+        subscriptionStatus: accessStatus.isPaid ? 'ativa' : 'inativa',
+        isPaid: accessStatus.isPaid,
+        plan: accessStatus.plan,
+        course: accessStatus.course
+    };
+
+    localStorage.setItem('aliadoCurrentUser', JSON.stringify(user));
+    if (accessStatus.isPaid && accessStatus.course) {
+        localStorage.setItem('aliadoCourse', accessStatus.course);
+    } else {
+        localStorage.removeItem('aliadoCourse');
+    }
+}
+
+async function fetchAccessStatus(supabaseClient, userId) {
+    const fallback = { isPaid: false, plan: 'free', course: null };
+
+    const { data, error } = await supabaseClient
+        .from('user_access')
+        .select('pago, plano, curso')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+    if (error || !data) {
+        return fallback;
+    }
+
+    return {
+        isPaid: !!data.pago,
+        plan: data.plano || 'free',
+        course: data.curso || null
+    };
+}
+
+function getCurrentUser() {
+    const raw = localStorage.getItem('aliadoCurrentUser');
+    if (!raw) return null;
+
+    try {
+        return JSON.parse(raw);
+    } catch {
+        return null;
+    }
+}
+
+function setupCoursePurchaseButtons() {
+    const purchaseLinks = document.querySelectorAll('a[href^="pagamento.html?plano="]');
+    if (!purchaseLinks.length) return;
+
+    purchaseLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            const currentUser = getCurrentUser();
+            const url = new URL(this.getAttribute('href'), window.location.origin);
+            const selectedCourse = url.searchParams.get('plano');
+
+            if (!currentUser) {
+                event.preventDefault();
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (currentUser.isPaid && currentUser.course === selectedCourse) {
+                event.preventDefault();
+                alert('Voce ja possui este curso.');
+            }
+        });
+    });
+}
+
+function renderNavbarByAuth() {
+    const menuAulas = document.getElementById('menuAulas');
+    const menuSimulados = document.getElementById('menuSimulados');
+    const menuAssinar = document.getElementById('menuAssinar');
+    const menuEntrar = document.getElementById('menuEntrar');
+    const menuCadastrar = document.getElementById('menuCadastrar');
+    const menuConectado = document.getElementById('menuConectado');
+    const menuSair = document.getElementById('menuSair');
+    const textoConectado = document.getElementById('textoConectado');
+    const btnSairNavbar = document.getElementById('btnSairNavbar');
+    const currentUser = getCurrentUser();
+
+    if (!menuAulas || !menuSimulados || !menuAssinar || !menuEntrar || !menuCadastrar || !menuConectado || !menuSair || !textoConectado) {
+        return;
+    }
+
+    if (currentUser) {
+        const hasPaidAccess = !!currentUser.isPaid;
+
+        menuAulas.classList.remove('d-none');
+        menuSimulados.classList.remove('d-none');
+        menuAssinar.classList.add('d-none');
+        if (!hasPaidAccess) {
+            menuAulas.classList.add('d-none');
+            menuSimulados.classList.add('d-none');
+            menuAssinar.classList.remove('d-none');
+        }
+        menuConectado.classList.remove('d-none');
+        menuSair.classList.remove('d-none');
+        menuEntrar.classList.add('d-none');
+        menuCadastrar.classList.add('d-none');
+        const displayName = currentUser.username || currentUser.fullName || currentUser.email;
+        textoConectado.textContent = `Conectado: ${displayName} (${hasPaidAccess ? 'Pago' : 'Sem assinatura'})`;
+    } else {
+        menuAulas.classList.add('d-none');
+        menuSimulados.classList.add('d-none');
+        menuAssinar.classList.add('d-none');
+        menuConectado.classList.add('d-none');
+        menuSair.classList.add('d-none');
+        menuEntrar.classList.remove('d-none');
+        menuCadastrar.classList.remove('d-none');
+        textoConectado.textContent = '';
+    }
+
+    if (btnSairNavbar) {
+        btnSairNavbar.addEventListener('click', async function () {
+            const supabaseClient = createSupabaseClient();
+            if (supabaseClient) {
+                await supabaseClient.auth.signOut();
+            }
+
+            localStorage.removeItem('aliadoCurrentUser');
+            localStorage.removeItem('aliadoCourse');
+            localStorage.removeItem('aliadoAccessCode');
+            window.location.href = 'index.html';
+        });
+    }
+}
+
+function lockVideosForGuests() {
+    const videosSection = document.getElementById('videos');
+    if (!videosSection) return;
+
+    const currentUserRaw = localStorage.getItem('aliadoCurrentUser');
+    if (currentUserRaw) return;
+
+    videosSection.innerHTML = `
+        <div class="container">
+            <div class="text-center p-5 bg-white rounded-4 shadow-sm">
+                <i class="fas fa-lock fa-3x text-primary mb-3"></i>
+                <h2 class="fw-bold mb-3">Vídeos exclusivos para alunos logados</h2>
+                <p class="text-muted mb-4">Entre na sua conta para assistir às aulas e conteúdos em vídeo.</p>
+                <a class="btn btn-warning btn-lg me-2" href="login.html">Entrar</a>
+                <a class="btn btn-outline-success btn-lg" href="cadastro.html">Cadastrar</a>
+            </div>
+        </div>
+    `;
+}
 
 // Função para mostrar aviso de cookies
 function showCookieNotice() {
