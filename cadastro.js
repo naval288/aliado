@@ -2,7 +2,7 @@
     const form = document.getElementById('registerForm');
     const feedback = document.getElementById('feedback');
     const btnRegister = document.getElementById('btnRegister');
-    const supabaseClient = createSupabaseClient();
+
     const COOLDOWN_KEY = 'aliadoSignupCooldownUntil';
     let isSubmitting = false;
     let cooldownTimer = null;
@@ -25,30 +25,22 @@
         return phone.replace(/\D/g, '');
     }
 
-    function createSupabaseClient() {
-        const config = window.SUPABASE_CONFIG || {};
-        if (!window.supabase || !config.url || !config.anonKey) {
-            return null;
-        }
 
-        return window.supabase.createClient(config.url, config.anonKey);
-    }
+    // Não é mais necessário criar cliente Supabase
 
-    function saveCurrentUser(user) {
+    function saveCurrentUser(user, extraData) {
         if (!user) return;
-
         const payload = {
-            id: user.id,
+            id: user.uid,
             email: user.email,
-            fullName: (user.user_metadata && user.user_metadata.full_name) || user.email,
-            username: (user.user_metadata && user.user_metadata.username) || '',
-            phone: (user.user_metadata && user.user_metadata.phone) || '',
+            fullName: extraData.fullName || user.email,
+            username: extraData.username || '',
+            phone: extraData.phone || '',
             provider: 'email',
             subscriptionStatus: 'inativa',
             isPaid: false,
             plan: 'free'
         };
-
         localStorage.setItem('aliadoCurrentUser', JSON.stringify(payload));
         localStorage.removeItem('aliadoCourse');
     }
@@ -170,59 +162,48 @@
             return;
         }
 
-        if (!supabaseClient) {
-            showFeedback('Configure o Supabase em supabase-config.js antes de cadastrar.', 'danger');
-            isSubmitting = false;
-            setButtonState(false, 'Criar conta');
-            return;
-        }
+        try {
+            // Cria usuário no Firebase Auth
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
 
-        const { data, error } = await supabaseClient.auth.signUp({
-            email,
-            password,
-            options: {
-                data: {
-                    full_name: fullName,
-                    username,
-                    phone
-                }
-            }
-        });
+            // Salva dados extras no Firestore
+            await db.collection('users').doc(user.uid).set({
+                fullName,
+                username,
+                phone,
+                email,
+                provider: 'email',
+                subscriptionStatus: 'inativa',
+                isPaid: false,
+                plan: 'free',
+                createdAt: new Date()
+            });
 
-        if (error) {
-            if (/rate limit/i.test(error.message || '')) {
-                showFeedback('Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente.', 'warning');
-                isSubmitting = false;
-                startCooldown(60);
-                return;
-            }
+            saveCurrentUser(user, { fullName, username, phone });
 
-            showFeedback(error.message || 'Erro ao cadastrar. Tente novamente.', 'danger');
-            isSubmitting = false;
-            setButtonState(false, 'Criar conta');
-            return;
-        }
-
-        if (data && data.user) {
-            saveCurrentUser(data.user);
-        }
-
-        if (data && !data.session) {
-            showFeedback('Cadastro criado. Verifique seu e-mail para confirmar a conta e depois entre.', 'success');
+            showFeedback('Cadastro realizado com sucesso! Redirecionando para a página inicial...', 'success');
             isSubmitting = false;
             setButtonState(false, 'Criar conta');
             setTimeout(() => {
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             }, 1200);
-            return;
+        } catch (error) {
+            if (error.code === 'auth/email-already-in-use') {
+                showFeedback('Este e-mail já está cadastrado.', 'danger');
+            } else if (error.code === 'auth/weak-password') {
+                showFeedback('A senha é muito fraca.', 'danger');
+            } else if (error.code === 'auth/invalid-email') {
+                showFeedback('E-mail inválido.', 'danger');
+            } else if (error.message && /rate limit|many requests/i.test(error.message)) {
+                showFeedback('Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente.', 'warning');
+                startCooldown(60);
+            } else {
+                showFeedback(error.message || 'Erro ao cadastrar. Tente novamente.', 'danger');
+            }
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
         }
-
-        showFeedback('Cadastro realizado com sucesso! Redirecionando para a página inicial...', 'success');
-        isSubmitting = false;
-        setButtonState(false, 'Criar conta');
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1200);
     });
 
 })();
