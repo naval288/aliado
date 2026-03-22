@@ -87,8 +87,8 @@
 
             <div class="mb-4">
                 <div class="mb-3">
-                    <label for="loginEmail" class="form-label fw-semibold">E-mail</label>
-                    <input type="email" class="form-control form-control-lg" id="loginEmail" placeholder="Seu e-mail cadastrado">
+                    <label for="loginEmail" class="form-label fw-semibold">E-mail ou Usuário</label>
+                    <input type="text" class="form-control form-control-lg" id="loginEmail" placeholder="Seu e-mail ou usuário">
                 </div>
                 <div class="mb-3">
                     <label for="loginPassword" class="form-label fw-semibold">Senha</label>
@@ -184,11 +184,11 @@
         });
 
         document.getElementById('btnLoginAccount').addEventListener('click', async function() {
-            const emailInput = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const loginInput = document.getElementById('loginEmail').value.trim().toLowerCase();
             const passwordInput = document.getElementById('loginPassword').value;
 
-            if (!emailInput || !passwordInput) {
-                showError('Digite e-mail e senha para entrar.');
+            if (!loginInput || !passwordInput) {
+                showError('Digite e-mail/usuário e senha para entrar.');
                 return;
             }
 
@@ -197,7 +197,7 @@
                 const response = await fetch('login.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: emailInput, password: passwordInput })
+                    body: JSON.stringify({ login: loginInput, password: passwordInput })
                 });
                 const result = await response.json();
                 if (result.success && result.user) {

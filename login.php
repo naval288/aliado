@@ -10,10 +10,11 @@ if ($conn->connect_error) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
-$email = $conn->real_escape_string($data['email'] ?? '');
+
+$login = $conn->real_escape_string($data['login'] ?? ''); // pode ser email ou username
 $password = $data['password'] ?? '';
 
-$sql = "SELECT * FROM usuarios WHERE email = '$email' LIMIT 1";
+$sql = "SELECT * FROM usuarios WHERE email = '$login' OR username = '$login' LIMIT 1";
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows === 1) {
