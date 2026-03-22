@@ -1,26 +1,49 @@
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', async function() {
-    // Sincroniza usuário do Supabase e só redireciona se sessão for válida
-    const supabaseClient = createSupabaseClient();
-    let isAuthenticated = false;
-    let user = null;
-    if (supabaseClient) {
-        const { data, error } = await supabaseClient.auth.getUser();
-        if (!error && data && data.user) {
-            isAuthenticated = true;
-            await syncUserFromSupabaseSession();
-            user = getCurrentUser();
-        } else {
-            // Limpa localStorage se não autenticado
-            localStorage.removeItem('aliadoCurrentUser');
-            localStorage.removeItem('aliadoCourse');
+    // Pequeno delay para garantir que sessão do Supabase foi atualizada (ex: após logout)
+    setTimeout(async () => {
+        const supabaseClient = createSupabaseClient();
+        let isAuthenticated = false;
+        let user = null;
+        if (supabaseClient) {
+            const { data, error } = await supabaseClient.auth.getUser();
+            if (!error && data && data.user) {
+                isAuthenticated = true;
+                await syncUserFromSupabaseSession();
+                user = getCurrentUser();
+            } else {
+                // Limpa localStorage se não autenticado
+                localStorage.removeItem('aliadoCurrentUser');
+                localStorage.removeItem('aliadoCourse');
+            }
         }
-    }
-    // Só redireciona se autenticado e pago
-    if (isAuthenticated && user && user.isPaid && user.course) {
-        window.location.href = 'area-do-aluno.html';
-        return;
-    }
+        // Só redireciona se autenticado e pago
+        if (isAuthenticated && user && user.isPaid && user.course) {
+            window.location.href = 'area-do-aluno.html';
+            return;
+        }
+        renderNavbarByAuth();
+        setupCoursePurchaseButtons();
+        lockVideosForGuests();
+
+        // Mostrar aviso de cookies após 2 segundos
+        setTimeout(showCookieNotice, 2000);
+        
+        // Adicionar animações de scroll
+        initScrollAnimations();
+        
+        // Navbar transparente no topo
+        initNavbarScroll();
+        
+        // Smooth scroll para links internos
+        initSmoothScroll();
+        
+        // Iniciar carrossel automaticamente
+        initCarousel();
+        
+        // Contador animado nas estatísticas
+        animateCounters();
+    }, 300);
     renderNavbarByAuth();
     setupCoursePurchaseButtons();
     lockVideosForGuests();
@@ -178,11 +201,12 @@ function renderNavbarByAuth() {
             if (supabaseClient) {
                 await supabaseClient.auth.signOut();
             }
-
             localStorage.removeItem('aliadoCurrentUser');
             localStorage.removeItem('aliadoCourse');
             localStorage.removeItem('aliadoAccessCode');
+            // Força reload para garantir que sessão foi invalidada
             window.location.href = 'index.html';
+            setTimeout(() => { window.location.reload(true); }, 100);
         });
     }
 }
