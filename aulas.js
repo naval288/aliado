@@ -1,152 +1,64 @@
 // Banco de dados de cursos e aulas
 const coursesData = {
-    'materias': {
-        // Banco de dados de cursos e aulas
-        const coursesData = {
-            'materias': {
-                name: 'Matérias do Curso',
-                modules: [
-                    {
-                        id: 'mod1',
-                        name: 'LEGISLAÇÃO',
-                        lessons: [
-                            { title: 'Cerimonial da Marinha', topics: [
-                                // Banco de dados de cursos e aulas
-                                const coursesData = {
-                                    'materias': {
-                                        name: 'Matérias do Curso',
-                                        modules: [
-                                            {
-                                                id: 'mod1',
-                                                name: 'LEGISLAÇÃO',
-                                                lessons: [
-                                                    {
-                                                        title: 'Cerimonial da Marinha',
-                                                        topics: [
-                                                            'Propósito e conceituação',
-                                                            'Permissão para largar',
-                                                            'Embarque e desembarque',
-                                                            'Continência (quando faz / quando não faz / dispensa)',
-                                                            'Honras de portaló',
-                                                            'Cerimonial à bandeira',
-                                                            'Procedimentos em veículos',
-                                                            'Iluminação, dobra e guarda da bandeira',
-                                                            'Entrada/saída de bordo',
-                                                            'Saudações (diária e passagem)',
-                                                            'Hasteamento e arriamento',
-                                                            'Proibições',
-                                                            'Bandeira da Cruz Vermelha',
-                                                            'Autoridades a bordo',
-                                                            'Datas festivas / dias de gala'
-                                                        ]
-                                                    },
-                                                    {
-                                                        title: 'Estatuto dos Militares',
-                                                        topics: [
-                                                            'Disposições preliminares',
-                                                            'Hierarquia e disciplina',
-                                                            'Obrigações militares',
-                                                            'Deveres militares',
-                                                            'Violações',
-                                                            'Direitos',
-                                                            'Prerrogativas'
-                                                        ]
-                                                    },
-                                                    {
-                                                        title: 'Regulamento Disciplinar da Marinha',
-                                                        topics: [
-                                                            'Generalidades',
-                                                            'Contravenções disciplinares',
-                                                            'Penas disciplinares'
-                                                        ]
-                                                    },
-                                                    {
-                                                        title: 'Ordenança Geral da Armada',
-                                                        topics: [
-                                                            'Disposições gerais',
-                                                            'Deveres das praças',
-                                                            'Guardas e sentinelas'
-                                                        ]
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    }
-                                };
-                        ]
-                    }
-                ]
-            },
-            {
-                id: 'mod3',
-                name: 'Conhecimentos Militares',
-                icon: 'fa-shield-alt',
-                lessons: [
-                    {
-                        id: 'cm1',
-                        title: 'Ordenança Geral',
-                        duration: '45 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Estudo da Ordenança Geral das Forças Armadas.',
-                        materials: [
-                            { name: 'Ordenança Geral.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'cm2',
-                        title: 'Regulamento Disciplinar',
-                        duration: '50 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Normas disciplinares e hierarquia militar.',
-                        materials: []
-                    },
-                    {
-                        id: 'cm3',
-                        title: 'Armamento e Munição',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Conhecimentos sobre armamento, munição e tiro.',
-                        materials: [
-                            { name: 'Manual de Armamento.pdf', url: '#' }
-                        ]
-                    }
-                ]
-            },
-            {
-                id: 'mod4',
-                name: 'Informática',
-                icon: 'fa-laptop',
-                lessons: [
-                    {
-                        id: 'inf1',
-                        title: 'Windows e Linux',
-                        duration: '45 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Sistemas operacionais Windows e Linux: recursos e comandos.',
-                        materials: []
-                    },
-                    {
-                        id: 'inf2',
-                        title: 'Microsoft Office',
-                        duration: '50 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Word, Excel e PowerPoint: funcionalidades e atalhos.',
-                        materials: [
-                            { name: 'Atalhos Office.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'inf3',
-                        title: 'Redes e Internet',
-                        duration: '40 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Conceitos de redes, protocolos e segurança da informação.',
-                        materials: []
-                    }
-                ]
-            }
+  'materias': {
+    name: 'Matérias do Curso',
+    modules: [
+      {
+        id: 'mod1',
+        name: 'LEGISLAÇÃO',
+        lessons: [
+          {
+            title: 'Cerimonial da Marinha',
+            topics: [
+              'Propósito e conceituação',
+              'Permissão para largar',
+              'Embarque e desembarque',
+              'Continência (quando faz / quando não faz / dispensa)',
+              'Honras de portaló',
+              'Cerimonial à bandeira',
+              'Procedimentos em veículos',
+              'Iluminação, dobra e guarda da bandeira',
+              'Entrada/saída de bordo',
+              'Saudações (diária e passagem)',
+              'Hasteamento e arriamento',
+              'Proibições',
+              'Bandeira da Cruz Vermelha',
+              'Autoridades a bordo',
+              'Datas festivas / dias de gala'
+            ]
+          },
+          {
+            title: 'Estatuto dos Militares',
+            topics: [
+              'Disposições preliminares',
+              'Hierarquia e disciplina',
+              'Obrigações militares',
+              'Deveres militares',
+              'Violações',
+              'Direitos',
+              'Prerrogativas'
+            ]
+          },
+          {
+            title: 'Regulamento Disciplinar da Marinha',
+            topics: [
+              'Generalidades',
+              'Contravenções disciplinares',
+              'Penas disciplinares'
+            ]
+          },
+          {
+            title: 'Ordenança Geral da Armada',
+            topics: [
+              'Disposições gerais',
+              'Deveres das praças',
+              'Guardas e sentinelas'
+            ]
+          }
         ]
-    }
+      }
+    ]
+  }
 };
 
 // Estado da aplicação
