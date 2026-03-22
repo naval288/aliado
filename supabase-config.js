@@ -12,7 +12,7 @@ if (!window.supabase) {
     var script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js';
     script.onload = function() {
-        console.log('Supabase SDK carregado!');
+        // Supabase SDK carregado
     };
     document.head.appendChild(script);
 }
