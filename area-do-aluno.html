@@ -19,21 +19,44 @@
     </div>
   </main>
   <script>
-    // Checagem de login e pagamento
-    const userRaw = localStorage.getItem('aliadoCurrentUser');
-    let user = null;
-    if (userRaw) {
-      try { user = JSON.parse(userRaw); } catch { user = null; }
+    async function checkAuthAndPaid() {
+        if (window.supabase && window.SUPABASE_CONFIG) {
+            const supabaseClient = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+            const { data, error } = await supabaseClient.auth.getUser();
+            if (error || !data || !data.user) {
+                showLocked();
+                return;
+            }
+            const { data: accessData, error: accessError } = await supabaseClient
+                .from('user_access')
+                .select('pago')
+                .eq('user_id', data.user.id)
+                .maybeSingle();
+            if (!accessData || !accessData.pago) {
+                showLocked();
+                return;
+            }
+        } else {
+            const userRaw = localStorage.getItem('aliadoCurrentUser');
+            let user = null;
+            if (userRaw) {
+                try { user = JSON.parse(userRaw); } catch { user = null; }
+            }
+            if (!user || !user.isPaid) {
+                showLocked();
+                return;
+            }
+        }
     }
-    if (!user || !user.isPaid) {
-      alert('Acesso restrito. Faça login e confirme o pagamento.');
-      window.location.href = 'login.html';
+    function showLocked() {
+        document.body.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#f5f5f5;">
+            <div style='font-size:5rem;color:#4a7c17;'><i class="fa fa-lock"></i></div>
+            <h2 style='color:#4a7c17;'>Área restrita</h2>
+            <p>Faça login e confirme o pagamento para acessar esta área.</p>
+            <a href='login.html' class='btn btn-success'>Fazer login</a>
+        </div>`;
     }
-    document.getElementById('btnLogout').onclick = function() {
-      localStorage.removeItem('aliadoCurrentUser');
-      localStorage.removeItem('aliadoCourse');
-      window.location.href = 'login.html';
-    };
+    checkAuthAndPaid();
   </script>
 </body>
 </html>
