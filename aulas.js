@@ -69,6 +69,9 @@ let expandedModuleId = null;
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
+    // Forçar o curso correto para garantir que as matérias apareçam
+    localStorage.setItem('aliadoCourse', 'materias');
+
     const currentUserRaw = localStorage.getItem('aliadoCurrentUser');
     let currentUser = null;
     if (currentUserRaw) {
@@ -79,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     const userCourse = localStorage.getItem('aliadoCourse');
-    
+
     if (!currentUser) {
         window.location.href = 'login.html';
         return;
@@ -96,13 +99,13 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'index.html';
         return;
     }
-    
+
     // Definir o curso do usuário
     currentCourse = userCourse;
-    
+
     // Atualizar título do curso
     updateCourseTitle();
-    
+
     // Carregar progresso e renderizar
     loadProgress();
     renderModules();
