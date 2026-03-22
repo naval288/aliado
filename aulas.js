@@ -1,183 +1,224 @@
 // Banco de dados de cursos e aulas
 const coursesData = {
-    'soldado-cabo': {
-        name: 'Soldado para Cabo',
+    'materias': {
+        name: 'Matérias do Curso',
         modules: [
             {
                 id: 'mod1',
-                name: 'Português',
-                icon: 'fa-book',
+                name: 'LEGISLAÇÃO',
                 lessons: [
-                    {
-                        id: 'pt1',
-                        title: 'Ortografia e Acentuação',
-                        duration: '45 min',
-                        videoId: 'dQw4w9WgXcQ', // Substitua pelo ID real do YouTube
-                        description: 'Aprenda as regras de ortografia e acentuação da língua portuguesa, essenciais para as provas militares.',
-                        materials: [
-                            { name: 'Apostila de Ortografia.pdf', url: '#' },
-                            { name: 'Exercícios Práticos.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'pt2',
-                        title: 'Classes Gramaticais',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Estudo completo das classes gramaticais: substantivo, adjetivo, verbo, advérbio e mais.',
-                        materials: [
-                            { name: 'Resumo Classes Gramaticais.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'pt3',
-                        title: 'Sintaxe e Análise Sintática',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Análise sintática: termos essenciais, integrantes e acessórios da oração.',
-                        materials: []
-                    },
-                    {
-                        id: 'pt4',
-                        title: 'Interpretação de Texto',
-                        duration: '50 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Técnicas de interpretação de texto e compreensão de questões de provas.',
-                        materials: [
-                            { name: 'Textos para Prática.pdf', url: '#' }
-                        ]
-                    }
+                    { title: 'Cerimonial da Marinha', topics: [
+                        'Conceitos básicos',
+                        'Continência (quando faz / não faz / dispensa)',
+                        'Embarque e desembarque',
+                        'Honras e portaló',
+                        'Bandeira (cerimonial, guarda, dobra, iluminação)',
+                        'Saudações (diária / passagem)',
+                        'Hasteamento e arriamento',
+                        'Procedimentos em veículos',
+                        'Autoridades a bordo',
+                        'Datas festivas e dias de gala',
+                        'Bandeira da Cruz Vermelha'
+                    ]},
+                    { title: 'Estatuto dos Militares', topics: [
+                        'Disposições preliminares',
+                        'Hierarquia e disciplina',
+                        'Obrigações',
+                        'Deveres',
+                        'Violações',
+                        'Direitos',
+                        'Prerrogativas'
+                    ]},
+                    { title: 'Regulamento Disciplinar (RDM)', topics: [
+                        'Generalidades',
+                        'Contravenções',
+                        'Penas'
+                    ]},
+                    { title: 'Ordenança Geral da Armada (OGSA)', topics: [
+                        'Disposições gerais',
+                        'Deveres das praças',
+                        'Guardas e sentinelas'
+                    ]}
                 ]
             },
             {
                 id: 'mod2',
-                name: 'Matemática',
-                icon: 'fa-calculator',
+                name: 'MANUAL DO FUZILEIRO NAVAL (MAIS IMPORTANTE)',
                 lessons: [
-                    {
-                        id: 'mat1',
-                        title: 'Operações Básicas e Frações',
-                        duration: '40 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Revisão de operações básicas, frações, números decimais e porcentagem.',
-                        materials: [
-                            { name: 'Lista de Exercícios.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'mat2',
-                        title: 'Equações e Sistemas',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Resolução de equações do 1º e 2º grau e sistemas de equações.',
-                        materials: []
-                    },
-                    {
-                        id: 'mat3',
-                        title: 'Geometria Plana',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Áreas, perímetros e propriedades das figuras geométricas planas.',
-                        materials: [
-                            { name: 'Fórmulas de Geometria.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'mat4',
-                        title: 'Regra de Três e Porcentagem',
-                        duration: '45 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Aplicações práticas de regra de três simples e composta, e cálculos de porcentagem.',
-                        materials: []
-                    }
+                    { title: 'Corpo de Fuzileiros Navais', topics: [
+                        'Histórico',
+                        'Fases (antecedentes → 1ª → 2ª → 3ª)'
+                    ]},
+                    { title: 'Tradições Navais', topics: [
+                        'Gente de bordo',
+                        'Serviço (oficial, contramestre, polícia, ronda, sentinela)',
+                        'Rotina de bordo (sino, apito, eventos)',
+                        'Costumes e saudações',
+                        'Uniformes',
+                        'Instalações (alojamento, rancho, paiol, etc.)',
+                        'Linguagem do mar'
+                    ]},
+                    { title: 'Hierarquia, Disciplina e Cortesia', topics: [
+                        'Hierarquia',
+                        'Disciplina',
+                        'Continência',
+                        'Tratamento entre militares',
+                        'Procedimentos do FN',
+                        'Postos e precedência'
+                    ]},
+                    { title: 'Legislação Militar (resumo completo)', topics: [
+                        'Constituição',
+                        'Estatuto dos Militares',
+                        'RDM',
+                        'CPM / CPPM',
+                        'Remuneração',
+                        'Promoção de praças',
+                        'Uniformes',
+                        'Continências',
+                        'OGSA',
+                        'Organização das Forças Armadas',
+                        'Conselhos',
+                        'Serviço militar'
+                    ]},
+                    { title: 'Educação Moral e Cívica', topics: [
+                        'Família',
+                        'Pátria',
+                        'Responsabilidade social',
+                        'Caserna',
+                        'Espírito de corpo',
+                        'Símbolos nacionais'
+                    ]},
+                    { title: 'Liderança', topics: [
+                        'Conceitos',
+                        'Ética',
+                        'Valores',
+                        'Princípios de liderança',
+                        'Influência / confiança / comprometimento',
+                        'Senso de dever / pertencimento / propósito',
+                        'O líder deve: ser, saber, fazer',
+                        'Diferença líder x chefe'
+                    ]},
+                    { title: 'Carreira do Fuzileiro Naval', topics: [
+                        'Estrutura da carreira',
+                        'Corpos e quadros',
+                        'Graus hierárquicos',
+                        'Cursos e estágios',
+                        'Promoções',
+                        'Tempo de serviço',
+                        'Ascensão ao oficialato',
+                        'Sistema de gestão',
+                        'Pontuação'
+                    ]},
+                    { title: 'Higiene e Profilaxia', topics: [
+                        'Higiene em campanha'
+                    ]},
+                    { title: 'Serviços Internos', topics: [
+                        'Serviço de estado',
+                        'Guarda do quartel',
+                        'Policiamento interno',
+                        'Funções: comandante da guarda, sentinela, plantão',
+                        'Regras de segurança'
+                    ]},
+                    { title: 'Conduta do Fuzileiro Naval', topics: [
+                        'Comportamento em público',
+                        'Redes sociais',
+                        'Exposição na internet',
+                        'Fake news'
+                    ]},
+                    { title: 'Organização da Marinha', topics: [
+                        'Estrutura da Marinha',
+                        'CFN',
+                        'Unidades operativas',
+                        'Batalhões',
+                        'Comandos'
+                    ]}
                 ]
             },
             {
                 id: 'mod3',
-                name: 'História e Geografia',
-                icon: 'fa-globe',
+                name: 'COMBATENTE ANFÍBIO',
                 lessons: [
-                    {
-                        id: 'hg1',
-                        title: 'História do Brasil - Independência',
-                        duration: '50 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'A independência do Brasil e o período imperial.',
-                        materials: [
-                            { name: 'Linha do Tempo.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'hg2',
-                        title: 'Geografia do Brasil',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Regiões brasileiras, clima, vegetação e relevo.',
-                        materials: [
-                            { name: 'Mapas do Brasil.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'hg3',
-                        title: 'História Militar Brasileira',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Principais conflitos e a participação das Forças Armadas na história do Brasil.',
-                        materials: []
-                    }
-                ]
-            }
-        ]
-    },
-    'cabo-sargento': {
-        name: 'Cabo para Sargento',
-        modules: [
-            {
-                id: 'mod1',
-                name: 'Português Avançado',
-                icon: 'fa-book',
-                lessons: [
-                    {
-                        id: 'pt1',
-                        title: 'Concordância Verbal e Nominal',
-                        duration: '50 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Regras avançadas de concordância verbal e nominal para concursos militares.',
-                        materials: [
-                            { name: 'Apostila Concordância.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'pt2',
-                        title: 'Regência Verbal e Nominal',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Estudo detalhado da regência de verbos e nomes mais cobrados em provas.',
-                        materials: []
-                    },
-                    {
-                        id: 'pt3',
-                        title: 'Crase',
-                        duration: '45 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Todas as regras de uso da crase com casos especiais e exceções.',
-                        materials: [
-                            { name: 'Exercícios de Crase.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'pt4',
-                        title: 'Redação Militar',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Técnicas de redação para correspondências e documentos militares.',
-                        materials: [
-                            { name: 'Modelos de Redação.pdf', url: '#' }
-                        ]
-                    }
+                    { title: 'Organização', topics: [
+                        'Batalhões (infantaria, artilharia, blindados etc.)',
+                        'Logística',
+                        'Companhia de polícia'
+                    ]},
+                    { title: 'Área de Operações', topics: [
+                        'Terreno',
+                        'Aspectos táticos',
+                        'Formas do terreno',
+                        'Leis do modelado'
+                    ]},
+                    { title: 'Técnicas de Combate', topics: [
+                        'Uso do terreno',
+                        'Observação (dia/noite)',
+                        'Tiro',
+                        'Camuflagem'
+                    ]},
+                    { title: 'Operações Anfíbias', topics: [
+                        'Tipos (assalto, incursão, retirada)',
+                        'Fases: planejamento, embarque, travessia, assalto',
+                        'Transbordo',
+                        'Desembarque',
+                        'Conduta em terra'
+                    ]},
+                    { title: 'Operações Terrestres', topics: [
+                        'Ofensiva',
+                        'Defensiva',
+                        'Manobras'
+                    ]},
+                    { title: 'Grupo de Combate (GC) e Esquadra de Tiro (ET)', topics: [
+                        'Organização',
+                        'Armamento',
+                        'Formações',
+                        'Sinais',
+                        'Combate ofensivo e defensivo'
+                    ]},
+                    { title: 'Visibilidade Reduzida', topics: [
+                        'Ataque noturno',
+                        'Equipamentos de visão'
+                    ]},
+                    { title: 'Patrulhas', topics: [
+                        'Tipos',
+                        'Organização',
+                        'Execução',
+                        'Ações em combate'
+                    ]},
+                    { title: 'Marchas e Estacionamentos', topics: [
+                        'Tipos de marcha',
+                        'Formação',
+                        'Regras',
+                        'Estacionamento'
+                    ]},
+                    { title: 'Comunicações', topics: [
+                        'Fonia',
+                        'Alfabeto naval',
+                        'Procedimentos'
+                    ]},
+                    { title: 'Combate Corpo a Corpo', topics: [
+                        'Fundamentos',
+                        'Técnicas ofensivas e defensivas'
+                    ]}
                 ]
             },
             {
+                id: 'mod4',
+                name: 'GRUPAMENTOS OPERATIVOS',
+                lessons: [
+                    { title: 'Guerra e Conflito', topics: [
+                        'Guerra de atrito',
+                        'Guerra de manobra'
+                    ]},
+                    { title: 'Fuzileiros Navais', topics: [
+                        'Caráter anfíbio',
+                        'Operações',
+                        'Atividades (combate e apoio)'
+                    ]}
+                ]
+            }
+        ]
+    }
+};
                 id: 'mod2',
                 name: 'Matemática Avançada',
                 icon: 'fa-calculator',
