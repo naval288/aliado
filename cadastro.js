@@ -26,22 +26,15 @@
     }
 
 
-    // Não é mais necessário criar cliente Supabase
 
-    function saveCurrentUser(user, extraData) {
+
+    // Aqui futuramente você pode chamar uma API/backend para salvar no SQL
+
+
+    // Função para salvar usuário localmente (ajuste conforme backend SQL futuramente)
+    function saveCurrentUser(user) {
         if (!user) return;
-        const payload = {
-            id: user.uid,
-            email: user.email,
-            fullName: extraData.fullName || user.email,
-            username: extraData.username || '',
-            phone: extraData.phone || '',
-            provider: 'email',
-            subscriptionStatus: 'inativa',
-            isPaid: false,
-            plan: 'free'
-        };
-        localStorage.setItem('aliadoCurrentUser', JSON.stringify(payload));
+        localStorage.setItem('aliadoCurrentUser', JSON.stringify(user));
         localStorage.removeItem('aliadoCourse');
     }
 
@@ -162,48 +155,16 @@
             return;
         }
 
-        try {
-            // Cria usuário no Firebase Auth
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-            const user = userCredential.user;
-
-            // Salva dados extras no Firestore
-            await db.collection('users').doc(user.uid).set({
-                fullName,
-                username,
-                phone,
-                email,
-                provider: 'email',
-                subscriptionStatus: 'inativa',
-                isPaid: false,
-                plan: 'free',
-                createdAt: new Date()
-            });
-
-            saveCurrentUser(user, { fullName, username, phone });
-
-            showFeedback('Cadastro realizado com sucesso! Redirecionando para a página inicial...', 'success');
-            isSubmitting = false;
-            setButtonState(false, 'Criar conta');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1200);
-        } catch (error) {
-            if (error.code === 'auth/email-already-in-use') {
-                showFeedback('Este e-mail já está cadastrado.', 'danger');
-            } else if (error.code === 'auth/weak-password') {
-                showFeedback('A senha é muito fraca.', 'danger');
-            } else if (error.code === 'auth/invalid-email') {
-                showFeedback('E-mail inválido.', 'danger');
-            } else if (error.message && /rate limit|many requests/i.test(error.message)) {
-                showFeedback('Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente.', 'warning');
-                startCooldown(60);
-            } else {
-                showFeedback(error.message || 'Erro ao cadastrar. Tente novamente.', 'danger');
-            }
-            isSubmitting = false;
-            setButtonState(false, 'Criar conta');
-        }
+        // Aqui você deve enviar os dados para seu backend SQL futuramente
+        // Exemplo: await fetch('/api/cadastro', { method: 'POST', body: JSON.stringify({ username, fullName, phone, email, password }) })
+        // Por enquanto, só salva localmente para simular
+        saveCurrentUser({ username, fullName, phone, email });
+        showFeedback('Cadastro realizado (simulação local). Integre com backend SQL para persistir!', 'success');
+        isSubmitting = false;
+        setButtonState(false, 'Criar conta');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1200);
     });
 
 })();
