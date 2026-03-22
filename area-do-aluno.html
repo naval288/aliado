@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Aluno</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="navbar-title">Área do Aluno</span>
+    <button id="btnLogout">Sair</button>
+  </nav>
+  <main class="aluno-main">
+    <h2>Bem-vindo à sua área exclusiva!</h2>
+    <div class="aluno-links">
+      <a href="aulas.html" class="aluno-link">Aulas</a>
+      <a href="simulados.html" class="aluno-link">Simulados</a>
+    </div>
+  </main>
+  <script>
+    // Checagem de login e pagamento
+    const userRaw = localStorage.getItem('aliadoCurrentUser');
+    let user = null;
+    if (userRaw) {
+      try { user = JSON.parse(userRaw); } catch { user = null; }
+    }
+    if (!user || !user.isPaid) {
+      alert('Acesso restrito. Faça login e confirme o pagamento.');
+      window.location.href = 'login.html';
+    }
+    document.getElementById('btnLogout').onclick = function() {
+      localStorage.removeItem('aliadoCurrentUser');
+      localStorage.removeItem('aliadoCourse');
+      window.location.href = 'login.html';
+    };
+  </script>
+</body>
+</html>
