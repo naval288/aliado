@@ -52,62 +52,60 @@ const coursesData = {
             {
                 id: 'mod2',
                 name: 'Matemática',
-                icon: 'fa-calculator',
-                lessons: [
+                modules: [
                     {
-                        id: 'mat1',
-                        title: 'Operações Básicas e Frações',
-                        duration: '40 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Revisão de operações básicas, frações, números decimais e porcentagem.',
-                        materials: [
-                            { name: 'Lista de Exercícios.pdf', url: '#' }
+                        id: 'mod1',
+                        name: 'LEGISLAÇÃO',
+                        lessons: [
+                            { title: 'Cerimonial da Marinha', topics: [] },
+                            { title: 'Estatuto dos Militares', topics: [] },
+                            { title: 'Regulamento Disciplinar para a Marinha', topics: [] },
+                            { title: 'Ordenança Geral para o Serviço da Armada', topics: [] }
                         ]
                     },
                     {
-                        id: 'mat2',
-                        title: 'Equações e Sistemas',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Resolução de equações do 1º e 2º grau e sistemas de equações.',
-                        materials: []
-                    },
-                    {
-                        id: 'mat3',
-                        title: 'Geometria Plana',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Áreas, perímetros e propriedades das figuras geométricas planas.',
-                        materials: [
-                            { name: 'Fórmulas de Geometria.pdf', url: '#' }
+                        id: 'mod2',
+                        name: 'MANUAL BÁSICO DO FUZILEIRO NAVAL',
+                        lessons: [
+                            { title: 'O Corpo de Fuzileiros Navais', topics: [] },
+                            { title: 'Tradições Navais', topics: [] },
+                            { title: 'Hierarquia, Disciplina e Cortesia', topics: [] },
+                            { title: 'Legislação Pertinente aos Militares da Marinha do Brasil', topics: [] },
+                            { title: 'Educação Moral e Cívica', topics: [] },
+                            { title: 'Liderança', topics: [] },
+                            { title: 'A carreira do Fuzileiro Naval', topics: [] },
+                            { title: 'Higiene e profilaxia', topics: [] },
+                            { title: 'Serviços internos', topics: [] },
+                            { title: 'A conduta do Fuzileiro Naval em sociedade', topics: [] },
+                            { title: 'Organização', topics: [] }
                         ]
                     },
                     {
-                        id: 'mat4',
-                        title: 'Regra de Três e Porcentagem',
-                        duration: '45 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Aplicações práticas de regra de três simples e composta, e cálculos de porcentagem.',
-                        materials: []
+                        id: 'mod3',
+                        name: 'MANUAL BÁSICO DO COMBATENTE ANFÍBIO',
+                        lessons: [
+                            { title: 'Organização', topics: [] },
+                            { title: 'Características de uma Área de Operações', topics: [] },
+                            { title: 'Técnicas Individuais de Combate', topics: [] },
+                            { title: 'Operações Anfíbias', topics: [] },
+                            { title: 'Operações Terrestres', topics: [] },
+                            { title: 'Grupo de Combate e Esquadra de Tiro', topics: [] },
+                            { title: 'Operações sob condições de visibilidade reduzida', topics: [] },
+                            { title: 'Patrulhas', topics: [] },
+                            { title: 'Marchas e estacionamentos', topics: [] },
+                            { title: 'Comunicações', topics: [] },
+                            { title: 'Combate corpo a corpo', topics: [] }
+                        ]
+                    },
+                    {
+                        id: 'mod4',
+                        name: 'MANUAL DOS GRUPAMENTOS OPERATIVOS',
+                        lessons: [
+                            { title: 'Guerra, Conflito, Poder e Funções de Combate', topics: [] },
+                            { title: 'Os Fuzileiros Navais', topics: [] }
+                        ]
                     }
                 ]
-            },
-            {
-                id: 'mod3',
-                name: 'História e Geografia',
-                icon: 'fa-globe',
-                lessons: [
-                    {
-                        id: 'hg1',
-                        title: 'História do Brasil - Independência',
-                        duration: '50 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'A independência do Brasil e o período imperial.',
-                        materials: [
-                            { name: 'Linha do Tempo.pdf', url: '#' }
-                        ]
-                    },
-                    {
                         id: 'hg2',
                         title: 'Geografia do Brasil',
                         duration: '55 min',
