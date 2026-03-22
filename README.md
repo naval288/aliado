@@ -63,7 +63,7 @@ npx http-server -p 8000
 
 **Com PHP:**
 ```bash
-php -S localhost:8000
+// PHP has been removed from the instructions.
 ```
 
 **Com VS Code Live Server:**

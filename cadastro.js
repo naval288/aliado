@@ -155,16 +155,52 @@
             return;
         }
 
-        // Aqui você deve enviar os dados para seu backend SQL futuramente
-        // Exemplo: await fetch('/api/cadastro', { method: 'POST', body: JSON.stringify({ username, fullName, phone, email, password }) })
-        // Por enquanto, só salva localmente para simular
-        saveCurrentUser({ username, fullName, phone, email });
-        showFeedback('Cadastro realizado (simulação local). Integre com backend SQL para persistir!', 'success');
-        isSubmitting = false;
-        setButtonState(false, 'Criar conta');
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1200);
+        // Cadastro via Supabase
+        if (!window.supabase || !window.SUPABASE_CONFIG) {
+            showFeedback('Supabase não carregado. Tente recarregar a página.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
+            return;
+        }
+        const supabaseClient = window.supabase.createClient(window.SUPABASE_CONFIG.url, window.SUPABASE_CONFIG.anonKey);
+        try {
+            const { data, error } = await supabaseClient.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: fullName,
+                        username,
+                        phone
+                    }
+                }
+            });
+            if (error) {
+                showFeedback(error.message || 'Erro ao criar conta.', 'danger');
+                isSubmitting = false;
+                setButtonState(false, 'Criar conta');
+                return;
+            }
+            // Usuário criado, salva no localStorage
+            const user = {
+                id: data.user.id,
+                email: data.user.email,
+                fullName,
+                username,
+                phone,
+                provider: 'email'
+            };
+            saveCurrentUser(user);
+            showFeedback('Conta criada com sucesso! Verifique seu e-mail para ativar.', 'success');
+            setButtonState(true, 'Redirecionando...');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        } catch (e) {
+            showFeedback('Erro ao conectar ao Supabase.', 'danger');
+            isSubmitting = false;
+            setButtonState(false, 'Criar conta');
+        }
     });
 
 })();
