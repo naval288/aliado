@@ -219,6 +219,7 @@
                     .select('pago, curso')
                     .eq('user_id', data.user.id)
                     .maybeSingle();
+                console.log('DEBUG Supabase accessData:', accessData, 'error:', accessError);
 
                 // Monta objeto user para localStorage
                 const user = {
@@ -230,6 +231,7 @@
                     isPaid: accessData && accessData.pago ? true : false,
                     course: accessData && accessData.curso ? accessData.curso : null
                 };
+                console.log('DEBUG user salvo localStorage:', user);
                 localStorage.setItem('aliadoCurrentUser', JSON.stringify(user));
                 if (user.isPaid && user.course) {
                     localStorage.setItem('aliadoCourse', user.course);
