@@ -213,19 +213,37 @@
                     showError(error?.message || 'Não foi possível entrar. Confira os dados.');
                     return;
                 }
+                // Buscar status de acesso do usuário no Supabase
+                const { data: accessData, error: accessError } = await supabaseClient
+                    .from('user_access')
+                    .select('pago, curso')
+                    .eq('user_id', data.user.id)
+                    .maybeSingle();
+
                 // Monta objeto user para localStorage
                 const user = {
                     id: data.user.id,
                     email: data.user.email,
                     fullName: (data.user.user_metadata && data.user.user_metadata.full_name) || data.user.email,
                     username: (data.user.user_metadata && data.user.user_metadata.username) || '',
-                    provider: 'email'
+                    provider: 'email',
+                    isPaid: accessData && accessData.pago ? true : false,
+                    course: accessData && accessData.curso ? accessData.curso : null
                 };
                 localStorage.setItem('aliadoCurrentUser', JSON.stringify(user));
+                if (user.isPaid && user.course) {
+                    localStorage.setItem('aliadoCourse', user.course);
+                } else {
+                    localStorage.removeItem('aliadoCourse');
+                }
                 renderLoggedUser();
                 document.getElementById('errorMessage').style.display = 'none';
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    if (user.isPaid && user.course) {
+                        window.location.href = 'area-do-aluno.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
                 }, 600);
             } catch (e) {
                 showError('Erro ao conectar ao Supabase.');

@@ -61,6 +61,53 @@ const coursesData = {
             }
         ]
     },
+    'cabo-sargento': {
+        name: 'Cabo para Sargento',
+        modules: [
+            {
+                id: 'mod1',
+                name: 'Português Avançado',
+                icon: 'fa-book',
+                lessons: [
+                    { id: 'pt1', title: 'Concordância Verbal e Nominal', duration: '50 min', videoId: '', description: 'Regras avançadas de concordância verbal e nominal para concursos militares.', materials: [] },
+                    { id: 'pt2', title: 'Regência Verbal e Nominal', duration: '55 min', videoId: '', description: 'Estudo detalhado da regência de verbos e nomes mais cobrados em provas.', materials: [] },
+                    { id: 'pt3', title: 'Crase', duration: '45 min', videoId: '', description: 'Todas as regras de uso da crase com casos especiais e exceções.', materials: [] },
+                    { id: 'pt4', title: 'Redação Militar', duration: '60 min', videoId: '', description: 'Técnicas de redação para correspondências e documentos militares.', materials: [] }
+                ]
+            },
+            {
+                id: 'mod2',
+                name: 'Matemática Avançada',
+                icon: 'fa-calculator',
+                lessons: [
+                    { id: 'mat1', title: 'Funções', duration: '60 min', videoId: '', description: 'Estudo de funções: 1º grau, 2º grau, exponencial e logarítmica.', materials: [] },
+                    { id: 'mat2', title: 'Trigonometria', duration: '65 min', videoId: '', description: 'Razões trigonométricas, ciclo trigonométrico e identidades.', materials: [] },
+                    { id: 'mat3', title: 'Geometria Espacial', duration: '55 min', videoId: '', description: 'Cálculo de volumes e áreas de sólidos geométricos.', materials: [] },
+                    { id: 'mat4', title: 'Análise Combinatória', duration: '50 min', videoId: '', description: 'Princípios de contagem, permutações, arranjos e combinações.', materials: [] }
+                ]
+            },
+            {
+                id: 'mod3',
+                name: 'Conhecimentos Militares',
+                icon: 'fa-shield-alt',
+                lessons: [
+                    { id: 'cm1', title: 'Ordenança Geral', duration: '45 min', videoId: '', description: 'Estudo da Ordenança Geral das Forças Armadas.', materials: [] },
+                    { id: 'cm2', title: 'Regulamento Disciplinar', duration: '50 min', videoId: '', description: 'Normas disciplinares e hierarquia militar.', materials: [] },
+                    { id: 'cm3', title: 'Armamento e Munição', duration: '55 min', videoId: '', description: 'Conhecimentos sobre armamento, munição e tiro.', materials: [] }
+                ]
+            },
+            {
+                id: 'mod4',
+                name: 'Informática',
+                icon: 'fa-laptop',
+                lessons: [
+                    { id: 'inf1', title: 'Windows e Linux', duration: '45 min', videoId: '', description: 'Sistemas operacionais Windows e Linux: recursos e comandos.', materials: [] },
+                    { id: 'inf2', title: 'Microsoft Office', duration: '50 min', videoId: '', description: 'Word, Excel e PowerPoint: funcionalidades e atalhos.', materials: [] },
+                    { id: 'inf3', title: 'Redes e Internet', duration: '40 min', videoId: '', description: 'Conceitos de redes, protocolos e segurança da informação.', materials: [] }
+                ]
+            }
+        ]
+    },
     // Curso cabo-sargento removido para evitar erros de sintaxe e módulos de teste
 };
 
