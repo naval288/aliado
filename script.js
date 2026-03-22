@@ -1,6 +1,12 @@
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', async function() {
     await syncUserFromSupabaseSession();
+    // Se usuário está logado e pago, redireciona para área do aluno
+    const user = getCurrentUser();
+    if (user && user.isPaid && user.course) {
+        window.location.href = 'area-do-aluno.html';
+        return;
+    }
     renderNavbarByAuth();
     setupCoursePurchaseButtons();
     lockVideosForGuests();
@@ -120,8 +126,7 @@ function setupCoursePurchaseButtons() {
 }
 
 function renderNavbarByAuth() {
-    const menuAulas = document.getElementById('menuAulas');
-    const menuSimulados = document.getElementById('menuSimulados');
+    // Exibe apenas menus de login/cadastro/assinar/conectado/sair, nunca Aulas ou Simulados no index.html
     const menuAssinar = document.getElementById('menuAssinar');
     const menuEntrar = document.getElementById('menuEntrar');
     const menuCadastrar = document.getElementById('menuCadastrar');
@@ -131,21 +136,13 @@ function renderNavbarByAuth() {
     const btnSairNavbar = document.getElementById('btnSairNavbar');
     const currentUser = getCurrentUser();
 
-    if (!menuAulas || !menuSimulados || !menuAssinar || !menuEntrar || !menuCadastrar || !menuConectado || !menuSair || !textoConectado) {
+    if (!menuAssinar || !menuEntrar || !menuCadastrar || !menuConectado || !menuSair || !textoConectado) {
         return;
     }
 
     if (currentUser) {
         const hasPaidAccess = !!currentUser.isPaid;
-
-        menuAulas.classList.remove('d-none');
-        menuSimulados.classList.remove('d-none');
         menuAssinar.classList.add('d-none');
-        if (!hasPaidAccess) {
-            menuAulas.classList.add('d-none');
-            menuSimulados.classList.add('d-none');
-            menuAssinar.classList.remove('d-none');
-        }
         menuConectado.classList.remove('d-none');
         menuSair.classList.remove('d-none');
         menuEntrar.classList.add('d-none');
@@ -153,8 +150,6 @@ function renderNavbarByAuth() {
         const displayName = currentUser.username || currentUser.fullName || currentUser.email;
         textoConectado.textContent = `Conectado: ${displayName} (${hasPaidAccess ? 'Pago' : 'Sem assinatura'})`;
     } else {
-        menuAulas.classList.add('d-none');
-        menuSimulados.classList.add('d-none');
         menuAssinar.classList.add('d-none');
         menuConectado.classList.add('d-none');
         menuSair.classList.add('d-none');
