@@ -3,6 +3,7 @@ const coursesData = {
     'materias': {
         name: 'Matérias do Curso',
         modules: [
+            // Somente as matérias customizadas enviadas pelo usuário
             {
                 id: 'mod1',
                 name: 'LEGISLAÇÃO',
@@ -26,124 +27,12 @@ const coursesData = {
                         'Obrigações',
                         'Deveres',
                         'Violações',
-                        'Direitos',
-                        'Prerrogativas'
-                    ]},
-                    { title: 'Regulamento Disciplinar (RDM)', topics: [
-                        'Generalidades',
-                        'Contravenções',
-                        'Penas'
-                    ]},
-                    { title: 'Ordenança Geral da Armada (OGSA)', topics: [
-                        'Disposições gerais',
-                        'Deveres das praças',
-                        'Guardas e sentinelas'
-                    ]}
-                ]
-            },
-            {
-                id: 'mod2',
-                name: 'MANUAL DO FUZILEIRO NAVAL (MAIS IMPORTANTE)',
-                lessons: [
-                    { title: 'Corpo de Fuzileiros Navais', topics: [
-                        'Histórico',
-                        'Fases (antecedentes → 1ª → 2ª → 3ª)'
-                    ]},
-                    { title: 'Tradições Navais', topics: [
-                        'Gente de bordo',
-                        'Serviço (oficial, contramestre, polícia, ronda, sentinela)',
-                        'Rotina de bordo (sino, apito, eventos)',
-                        'Costumes e saudações',
-                        'Uniformes',
-                        'Instalações (alojamento, rancho, paiol, etc.)',
-                        'Linguagem do mar'
-                    ]},
-                    { title: 'Hierarquia, Disciplina e Cortesia', topics: [
-                        'Hierarquia',
-                        'Disciplina',
-                        'Continência',
-                        'Tratamento entre militares',
-                        'Procedimentos do FN',
-                        'Postos e precedência'
-                    ]},
-                    { title: 'Legislação Militar (resumo completo)', topics: [
-                        'Constituição',
-                        'Estatuto dos Militares',
-                        'RDM',
-                        'CPM / CPPM',
-                        'Remuneração',
-                        'Promoção de praças',
-                        'Uniformes',
-                        'Continências',
-                        'OGSA',
-                        'Organização das Forças Armadas',
-                        'Conselhos',
-                        'Serviço militar'
-                    ]},
-                    { title: 'Educação Moral e Cívica', topics: [
-                        'Família',
-                        'Pátria',
-                        'Responsabilidade social',
-                        'Caserna',
-                        'Espírito de corpo',
-                        'Símbolos nacionais'
-                    ]},
-                    { title: 'Liderança', topics: [
-                        'Conceitos',
-                        'Ética',
-                        'Valores',
-                        'Princípios de liderança',
-                        'Influência / confiança / comprometimento',
-                        'Senso de dever / pertencimento / propósito',
-                        'O líder deve: ser, saber, fazer',
-                        'Diferença líder x chefe'
-                    ]},
-                    { title: 'Carreira do Fuzileiro Naval', topics: [
-                        'Estrutura da carreira',
-                        'Corpos e quadros',
-                        'Graus hierárquicos',
-                        'Cursos e estágios',
-                        'Promoções',
-                        'Tempo de serviço',
-                        'Ascensão ao oficialato',
-                        'Sistema de gestão',
-                        'Pontuação'
-                    ]},
-                    { title: 'Higiene e Profilaxia', topics: [
-                        'Higiene em campanha'
-                    ]},
-                    { title: 'Serviços Internos', topics: [
-                        'Serviço de estado',
-                        'Guarda do quartel',
-                        'Policiamento interno',
-                        'Funções: comandante da guarda, sentinela, plantão',
-                        'Regras de segurança'
-                    ]},
-                    { title: 'Conduta do Fuzileiro Naval', topics: [
-                        'Comportamento em público',
-                        'Redes sociais',
-                        'Exposição na internet',
-                        'Fake news'
-                    ]},
-                    { title: 'Organização da Marinha', topics: [
-                        'Estrutura da Marinha',
-                        'CFN',
-                        'Unidades operativas',
-                        'Batalhões',
-                        'Comandos'
-                    ]}
-                ]
-            },
-            {
-                id: 'mod3',
-                name: 'COMBATENTE ANFÍBIO',
-                lessons: [
-                    { title: 'Organização', topics: [
-                        'Batalhões (infantaria, artilharia, blindados etc.)',
-                        'Logística',
-                        'Companhia de polícia'
-                    ]},
-                    { title: 'Área de Operações', topics: [
+			'Técnicas ofensivas e defensivas'
+			]
+		}
+	]
+	}
+};
                         'Terreno',
                         'Aspectos táticos',
                         'Formas do terreno',
@@ -219,25 +108,6 @@ const coursesData = {
         ]
     }
 };
-                id: 'mod2',
-                name: 'Matemática Avançada',
-                icon: 'fa-calculator',
-                lessons: [
-                    {
-                        id: 'mat1',
-                        title: 'Funções',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Estudo de funções: 1º grau, 2º grau, exponencial e logarítmica.',
-                        materials: [
-                            { name: 'Gráficos de Funções.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'mat2',
-                        title: 'Trigonometria',
-                        duration: '65 min',
-                        videoId: 'dQw4w9WgXcQ',
                         description: 'Razões trigonométricas, ciclo trigonométrico e identidades.',
                         materials: [
                             { name: 'Tabela Trigonométrica.pdf', url: '#' }
