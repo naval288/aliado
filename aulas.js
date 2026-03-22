@@ -4,125 +4,59 @@ const coursesData = {
         name: 'Soldado para Cabo',
         modules: [
             {
-                id: 'mod1',
-                name: 'Português',
-                icon: 'fa-book',
+                id: 'mod2',
+                name: 'LEGISLAÇÃO',
+                icon: 'fa-balance-scale',
                 lessons: [
-                    {
-                        id: 'pt1',
-                        title: 'Ortografia e Acentuação',
-                        duration: '45 min',
-                        videoId: 'dQw4w9WgXcQ', // Substitua pelo ID real do YouTube
-                        description: 'Aprenda as regras de ortografia e acentuação da língua portuguesa, essenciais para as provas militares.',
-                        materials: [
-                            { name: 'Apostila de Ortografia.pdf', url: '#' },
-                            { name: 'Exercícios Práticos.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'pt2',
-                        title: 'Classes Gramaticais',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Estudo completo das classes gramaticais: substantivo, adjetivo, verbo, advérbio e mais.',
-                        materials: [
-                            { name: 'Resumo Classes Gramaticais.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'pt3',
-                        title: 'Sintaxe e Análise Sintática',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Análise sintática: termos essenciais, integrantes e acessórios da oração.',
-                        materials: []
-                    },
-                    {
-                        id: 'pt4',
-                        title: 'Interpretação de Texto',
-                        duration: '50 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Técnicas de interpretação de texto e compreensão de questões de provas.',
-                        materials: [
-                            { name: 'Textos para Prática.pdf', url: '#' }
-                        ]
-                    }
+                    { id: 'leg1', title: 'Cerimonial da Marinha', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'leg2', title: 'Estatuto dos Militares', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'leg3', title: 'Regulamento Disciplinar para a Marinha', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'leg4', title: 'Ordenança Geral para o Serviço da Armada', duration: '30 min', videoId: '', description: '', topics: [] }
                 ]
             },
             {
-                id: 'mod2',
-                name: 'Matemática',
-                modules: [
-                    {
-                        id: 'mod1',
-                        name: 'LEGISLAÇÃO',
-                        lessons: [
-                            { id: 'leg1', title: 'Cerimonial da Marinha', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'leg2', title: 'Estatuto dos Militares', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'leg3', title: 'Regulamento Disciplinar para a Marinha', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'leg4', title: 'Ordenança Geral para o Serviço da Armada', duration: '30 min', videoId: '', description: '', topics: [] }
-                        ]
-                    },
-                    {
-                        id: 'mod2',
-                        name: 'MANUAL BÁSICO DO FUZILEIRO NAVAL',
-                        lessons: [
-                            { id: 'fn1', title: 'O Corpo de Fuzileiros Navais', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn2', title: 'Tradições Navais', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn3', title: 'Hierarquia, Disciplina e Cortesia', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn4', title: 'Legislação Pertinente aos Militares da Marinha do Brasil', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn5', title: 'Educação Moral e Cívica', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn6', title: 'Liderança', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn7', title: 'A carreira do Fuzileiro Naval', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn8', title: 'Higiene e profilaxia', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn9', title: 'Serviços internos', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn10', title: 'A conduta do Fuzileiro Naval em sociedade', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'fn11', title: 'Organização', duration: '30 min', videoId: '', description: '', topics: [] }
-                        ]
-                    },
-                    {
-                        id: 'mod3',
-                        name: 'MANUAL BÁSICO DO COMBATENTE ANFÍBIO',
-                        lessons: [
-                            { id: 'anf1', title: 'Organização', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf2', title: 'Características de uma Área de Operações', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf3', title: 'Técnicas Individuais de Combate', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf4', title: 'Operações Anfíbias', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf5', title: 'Operações Terrestres', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf6', title: 'Grupo de Combate e Esquadra de Tiro', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf7', title: 'Operações sob condições de visibilidade reduzida', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf8', title: 'Patrulhas', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf9', title: 'Marchas e estacionamentos', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf10', title: 'Comunicações', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'anf11', title: 'Combate corpo a corpo', duration: '30 min', videoId: '', description: '', topics: [] }
-                        ]
-                    },
-                    {
-                        id: 'mod4',
-                        name: 'MANUAL DOS GRUPAMENTOS OPERATIVOS',
-                        lessons: [
-                            { id: 'go1', title: 'Guerra, Conflito, Poder e Funções de Combate', duration: '30 min', videoId: '', description: '', topics: [] },
-                            { id: 'go2', title: 'Os Fuzileiros Navais', duration: '30 min', videoId: '', description: '', topics: [] }
-                        ]
-                    }
+                id: 'mod3',
+                name: 'MANUAL BÁSICO DO FUZILEIRO NAVAL',
+                icon: 'fa-anchor',
+                lessons: [
+                    { id: 'fn1', title: 'O Corpo de Fuzileiros Navais', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn2', title: 'Tradições Navais', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn3', title: 'Hierarquia, Disciplina e Cortesia', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn4', title: 'Legislação Pertinente aos Militares da Marinha do Brasil', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn5', title: 'Educação Moral e Cívica', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn6', title: 'Liderança', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn7', title: 'A carreira do Fuzileiro Naval', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn8', title: 'Higiene e profilaxia', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn9', title: 'Serviços internos', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn10', title: 'A conduta do Fuzileiro Naval em sociedade', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'fn11', title: 'Organização', duration: '30 min', videoId: '', description: '', topics: [] }
                 ]
-                        id: 'hg2',
-                        title: 'Geografia do Brasil',
-                        duration: '55 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Regiões brasileiras, clima, vegetação e relevo.',
-                        materials: [
-                            { name: 'Mapas do Brasil.pdf', url: '#' }
-                        ]
-                    },
-                    {
-                        id: 'hg3',
-                        title: 'História Militar Brasileira',
-                        duration: '60 min',
-                        videoId: 'dQw4w9WgXcQ',
-                        description: 'Principais conflitos e a participação das Forças Armadas na história do Brasil.',
-                        materials: []
-                    }
+            },
+            {
+                id: 'mod4',
+                name: 'MANUAL BÁSICO DO COMBATENTE ANFÍBIO',
+                icon: 'fa-water',
+                lessons: [
+                    { id: 'anf1', title: 'Organização', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf2', title: 'Características de uma Área de Operações', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf3', title: 'Técnicas Individuais de Combate', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf4', title: 'Operações Anfíbias', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf5', title: 'Operações Terrestres', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf6', title: 'Grupo de Combate e Esquadra de Tiro', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf7', title: 'Operações sob condições de visibilidade reduzida', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf8', title: 'Patrulhas', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf9', title: 'Marchas e estacionamentos', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf10', title: 'Comunicações', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'anf11', title: 'Combate corpo a corpo', duration: '30 min', videoId: '', description: '', topics: [] }
+                ]
+            },
+            {
+                id: 'mod5',
+                name: 'MANUAL DOS GRUPAMENTOS OPERATIVOS',
+                icon: 'fa-users',
+                lessons: [
+                    { id: 'go1', title: 'Guerra, Conflito, Poder e Funções de Combate', duration: '30 min', videoId: '', description: '', topics: [] },
+                    { id: 'go2', title: 'Os Fuzileiros Navais', duration: '30 min', videoId: '', description: '', topics: [] }
                 ]
             }
         ]
