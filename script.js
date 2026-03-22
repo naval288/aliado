@@ -17,10 +17,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                 localStorage.removeItem('aliadoCourse');
             }
         }
-        // Só redireciona se autenticado e pago
-        if (isAuthenticated && user && user.isPaid && user.course) {
-            window.location.href = 'area-do-aluno.html';
-            return;
+        // Exibe botão Área do Aluno só se autenticado e pago
+        const btnAreaAluno = document.getElementById('btnAreaAluno');
+        if (btnAreaAluno) {
+            if (isAuthenticated && user && user.isPaid && user.course) {
+                btnAreaAluno.classList.remove('d-none');
+            } else {
+                btnAreaAluno.classList.add('d-none');
+            }
         }
         renderNavbarByAuth();
         setupCoursePurchaseButtons();
