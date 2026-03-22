@@ -1,9 +1,23 @@
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', async function() {
-    await syncUserFromSupabaseSession();
-    // Se usuário está logado e pago, redireciona para área do aluno
-    const user = getCurrentUser();
-    if (user && user.isPaid && user.course) {
+    // Sincroniza usuário do Supabase e só redireciona se sessão for válida
+    const supabaseClient = createSupabaseClient();
+    let isAuthenticated = false;
+    let user = null;
+    if (supabaseClient) {
+        const { data, error } = await supabaseClient.auth.getUser();
+        if (!error && data && data.user) {
+            isAuthenticated = true;
+            await syncUserFromSupabaseSession();
+            user = getCurrentUser();
+        } else {
+            // Limpa localStorage se não autenticado
+            localStorage.removeItem('aliadoCurrentUser');
+            localStorage.removeItem('aliadoCourse');
+        }
+    }
+    // Só redireciona se autenticado e pago
+    if (isAuthenticated && user && user.isPaid && user.course) {
         window.location.href = 'area-do-aluno.html';
         return;
     }
