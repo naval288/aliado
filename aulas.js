@@ -1,209 +1,204 @@
 // Banco de dados de cursos e aulas
 const coursesData = {
     'materias': {
-        name: 'Matérias do Curso',
-        modules: [
-            // Banco de dados de cursos e aulas
-            const coursesData = {
-                'materias': {
-                    name: 'Matérias do Curso',
-                    modules: [
-                        {
-                            id: 'mod1',
-                            name: 'LEGISLAÇÃO',
-                            lessons: [
-                                { title: 'Cerimonial da Marinha', topics: [
-                                    'Propósito e conceituação',
-                                    'Permissão para largar',
-                                    'Embarque e desembarque',
-                                    'Continência (quando faz / quando não faz / dispensa)',
-                                    'Honras de portaló',
-                                    'Cerimonial à bandeira',
-                                    'Procedimentos em veículos',
-                                    'Iluminação, dobra e guarda da bandeira',
-                                    'Entrada/saída de bordo',
-                                    'Saudações (diária e passagem)',
-                                    'Hasteamento e arriamento',
-                                    'Proibições',
-                                    'Bandeira da Cruz Vermelha',
-                                    'Autoridades a bordo',
-                                    'Datas festivas / dias de gala'
-                                ]},
-                                { title: 'Estatuto dos Militares', topics: [
-                                    'Disposições preliminares',
-                                    'Hierarquia e disciplina',
-                                    'Obrigações militares',
-                                    'Deveres militares',
-                                    'Violações',
-                                    'Direitos',
-                                    'Prerrogativas'
-                                ]},
-                                { title: 'Regulamento Disciplinar da Marinha', topics: [
-                                    'Generalidades',
-                                    'Contravenções disciplinares',
-                                    'Penas disciplinares'
-                                ]},
-                                { title: 'Ordenança Geral da Armada', topics: [
-                                    'Disposições gerais',
-                                    'Deveres das praças',
-                                    'Guardas e sentinelas'
-                                ]}
-                            ]
-                        },
-                        {
-                            id: 'mod2',
-                            name: 'MANUAL BÁSICO DO FUZILEIRO NAVAL',
-                            lessons: [
-                                { title: 'Corpo de Fuzileiros Navais', topics: [
-                                    'Histórico (antecedentes, fases)'
-                                ]},
-                                { title: 'Tradições Navais', topics: [
-                                    'Gente de bordo',
-                                    'Pessoal de serviço',
-                                    'Oficial de serviço',
-                                    'Contramestre / Polícia / Ronda',
-                                    'Sentinela',
-                                    'Rotina de bordo',
-                                    'Sino e apito',
-                                    'Costumes',
-                                    'Saudações militares',
-                                    'Uniformes',
-                                    'Instalações (alojamento, rancho, paiol, etc.)',
-                                    'Linguagem do mar',
-                                    'Posições a bordo'
-                                ]},
-                                { title: 'Hierarquia, Disciplina e Cortesia', topics: [
-                                    'Hierarquia e disciplina',
-                                    'Cortesia militar',
-                                    'Continência',
-                                    'Tratamento entre militares',
-                                    'Procedimentos do FN',
-                                    'Postos e precedência'
-                                ]},
-                                { title: 'Legislação Militar (Resumo completo)', topics: [
-                                    'Constituição Federal',
-                                    'Estatuto dos Militares',
-                                    'RDM',
-                                    'Código Penal Militar',
-                                    'Código de Processo Penal Militar',
-                                    'Remuneração',
-                                    'Promoção de praças',
-                                    'Cerimonial',
-                                    'Uniformes',
-                                    'Continências',
-                                    'OGSA',
-                                    'Organização das Forças Armadas',
-                                    'Conselhos (disciplina/justificação)',
-                                    'Serviço militar'
-                                ]},
-                                { title: 'Educação Moral e Cívica', topics: [
-                                    'Família',
-                                    'Pátria',
-                                    'Responsabilidade social',
-                                    'Homem/mulher do mar',
-                                    'Caserna',
-                                    'Espírito de corpo',
-                                    'Símbolos nacionais'
-                                ]},
-                                { title: 'Liderança', topics: [
-                                    'Conceitos básicos',
-                                    'Ética',
-                                    'Valores',
-                                    'Princípios de liderança',
-                                    'Influência / confiança / comprometimento',
-                                    'Senso de pertencimento / dever / propósito',
-                                    'O que o líder deve ser, saber e fazer',
-                                    'Diferença líder x chefe'
-                                ]},
-                                { title: 'Carreira do Fuzileiro Naval', topics: [
-                                    'Estrutura da carreira',
-                                    'Corpos e quadros',
-                                    'Graus hierárquicos',
-                                    'Cursos e estágios',
-                                    'Promoções',
-                                    'Tempo de serviço',
-                                    'Ascensão ao oficialato',
-                                    'Sistema de gestão',
-                                    'Pontuação'
-                                ]},
-                                { title: 'Higiene e Profilaxia', topics: [
-                                    'Higiene em campanha'
-                                ]},
-                                { title: 'Serviços Internos', topics: [
-                                    'Serviço de estado',
-                                    'Guarda do quartel',
-                                    'Policiamento interno',
-                                    'Atribuições',
-                                    'Comandante da guarda',
-                                    'Sentinelas',
-                                    'Plantão',
-                                    'Regras de segurança'
-                                ]},
-                                { title: 'Conduta do Fuzileiro Naval', topics: [
-                                    'Comportamento em público',
-                                    'Uso de redes sociais',
-                                    'Exposição na internet',
-                                    'Fake news'
-                                ]},
-                                { title: 'Organização da Marinha', topics: [
-                                    'Missão e visão',
-                                    'Estrutura da Marinha',
-                                    'CFN (organização)',
-                                    'Unidades operativas',
-                                    'Batalhões',
-                                    'Comandos',
-                                    'OM de apoio'
-                                ]}
-                            ]
-                        },
-                        {
-                            id: 'mod3',
-                            name: 'MANUAL DO COMBATENTE ANFÍBIO',
-                            lessons: [
-                                { title: 'Organização', topics: [
-                                    'Batalhões (Infantaria, Artilharia, Blindados, etc.)',
-                                    'Companhia de Polícia',
-                                    'Logística'
-                                ]},
-                                { title: 'Área de Operações', topics: [
-                                    'Terreno',
-                                    'Aspectos táticos',
-                                    'Formas do terreno',
-                                    'Leis do modelado'
-                                ]},
-                                { title: 'Técnicas Individuais de Combate', topics: [
-                                    'Uso do terreno',
-                                    'Observação (dia/noite)',
-                                    'Posição de tiro',
-                                    'Camuflagem'
-                                ]},
-                                { title: 'Operações Anfíbias', topics: [
-                                    'Tipos (assalto, incursão, retirada)',
-                                    'Fases (planejamento → embarque → travessia → assalto)',
-                                    'Transbordo',
-                                    'Desembarque',
-                                    'Conduta em terra'
-                                ]},
-                                { title: 'Operações Terrestres', topics: [
-                                    'Ofensiva',
-                                    'Defensiva',
-                                    'Manobras táticas'
-                                ]},
-                                { title: 'Grupo de Combate e Esquadra de Tiro', topics: [
-                                    'Organização',
-                                    'Armamento',
-                                    'Formações',
-                                    'Sinais',
-                                    'Combate ofensivo e defensivo'
-                                ]}
-                            ]
-                        }
-                    ]
-                }
-            };
+        // Banco de dados de cursos e aulas
+        const coursesData = {
+            'materias': {
+                name: 'Matérias do Curso',
+                modules: [
                     {
-                        id: 'mat3',
-                        title: 'Geometria Espacial',
+                        id: 'mod1',
+                        name: 'LEGISLAÇÃO',
+                        lessons: [
+                            { title: 'Cerimonial da Marinha', topics: [
+                                'Propósito e conceituação',
+                                'Permissão para largar',
+                                'Embarque e desembarque',
+                                'Continência (quando faz / quando não faz / dispensa)',
+                                'Honras de portaló',
+                                'Cerimonial à bandeira',
+                                'Procedimentos em veículos',
+                                'Iluminação, dobra e guarda da bandeira',
+                                'Entrada/saída de bordo',
+                                'Saudações (diária e passagem)',
+                                'Hasteamento e arriamento',
+                                'Proibições',
+                                'Bandeira da Cruz Vermelha',
+                                'Autoridades a bordo',
+                                'Datas festivas / dias de gala'
+                            ]},
+                            { title: 'Estatuto dos Militares', topics: [
+                                'Disposições preliminares',
+                                'Hierarquia e disciplina',
+                                'Obrigações militares',
+                                'Deveres militares',
+                                'Violações',
+                                'Direitos',
+                                'Prerrogativas'
+                            ]},
+                            { title: 'Regulamento Disciplinar da Marinha', topics: [
+                                'Generalidades',
+                                'Contravenções disciplinares',
+                                'Penas disciplinares'
+                            ]},
+                            { title: 'Ordenança Geral da Armada', topics: [
+                                'Disposições gerais',
+                                'Deveres das praças',
+                                'Guardas e sentinelas'
+                            ]}
+                        ]
+                    },
+                    {
+                        id: 'mod2',
+                        name: 'MANUAL BÁSICO DO FUZILEIRO NAVAL',
+                        lessons: [
+                            { title: 'Corpo de Fuzileiros Navais', topics: [
+                                'Histórico (antecedentes, fases)'
+                            ]},
+                            { title: 'Tradições Navais', topics: [
+                                'Gente de bordo',
+                                'Pessoal de serviço',
+                                'Oficial de serviço',
+                                'Contramestre / Polícia / Ronda',
+                                'Sentinela',
+                                'Rotina de bordo',
+                                'Sino e apito',
+                                'Costumes',
+                                'Saudações militares',
+                                'Uniformes',
+                                'Instalações (alojamento, rancho, paiol, etc.)',
+                                'Linguagem do mar',
+                                'Posições a bordo'
+                            ]},
+                            { title: 'Hierarquia, Disciplina e Cortesia', topics: [
+                                'Hierarquia e disciplina',
+                                'Cortesia militar',
+                                'Continência',
+                                'Tratamento entre militares',
+                                'Procedimentos do FN',
+                                'Postos e precedência'
+                            ]},
+                            { title: 'Legislação Militar (Resumo completo)', topics: [
+                                'Constituição Federal',
+                                'Estatuto dos Militares',
+                                'RDM',
+                                'Código Penal Militar',
+                                'Código de Processo Penal Militar',
+                                'Remuneração',
+                                'Promoção de praças',
+                                'Cerimonial',
+                                'Uniformes',
+                                'Continências',
+                                'OGSA',
+                                'Organização das Forças Armadas',
+                                'Conselhos (disciplina/justificação)',
+                                'Serviço militar'
+                            ]},
+                            { title: 'Educação Moral e Cívica', topics: [
+                                'Família',
+                                'Pátria',
+                                'Responsabilidade social',
+                                'Homem/mulher do mar',
+                                'Caserna',
+                                'Espírito de corpo',
+                                'Símbolos nacionais'
+                            ]},
+                            { title: 'Liderança', topics: [
+                                'Conceitos básicos',
+                                'Ética',
+                                'Valores',
+                                'Princípios de liderança',
+                                'Influência / confiança / comprometimento',
+                                'Senso de pertencimento / dever / propósito',
+                                'O que o líder deve ser, saber e fazer',
+                                'Diferença líder x chefe'
+                            ]},
+                            { title: 'Carreira do Fuzileiro Naval', topics: [
+                                'Estrutura da carreira',
+                                'Corpos e quadros',
+                                'Graus hierárquicos',
+                                'Cursos e estágios',
+                                'Promoções',
+                                'Tempo de serviço',
+                                'Ascensão ao oficialato',
+                                'Sistema de gestão',
+                                'Pontuação'
+                            ]},
+                            { title: 'Higiene e Profilaxia', topics: [
+                                'Higiene em campanha'
+                            ]},
+                            { title: 'Serviços Internos', topics: [
+                                'Serviço de estado',
+                                'Guarda do quartel',
+                                'Policiamento interno',
+                                'Atribuições',
+                                'Comandante da guarda',
+                                'Sentinelas',
+                                'Plantão',
+                                'Regras de segurança'
+                            ]},
+                            { title: 'Conduta do Fuzileiro Naval', topics: [
+                                'Comportamento em público',
+                                'Uso de redes sociais',
+                                'Exposição na internet',
+                                'Fake news'
+                            ]},
+                            { title: 'Organização da Marinha', topics: [
+                                'Missão e visão',
+                                'Estrutura da Marinha',
+                                'CFN (organização)',
+                                'Unidades operativas',
+                                'Batalhões',
+                                'Comandos',
+                                'OM de apoio'
+                            ]}
+                        ]
+                    },
+                    {
+                        id: 'mod3',
+                        name: 'MANUAL DO COMBATENTE ANFÍBIO',
+                        lessons: [
+                            { title: 'Organização', topics: [
+                                'Batalhões (Infantaria, Artilharia, Blindados, etc.)',
+                                'Companhia de Polícia',
+                                'Logística'
+                            ]},
+                            { title: 'Área de Operações', topics: [
+                                'Terreno',
+                                'Aspectos táticos',
+                                'Formas do terreno',
+                                'Leis do modelado'
+                            ]},
+                            { title: 'Técnicas Individuais de Combate', topics: [
+                                'Uso do terreno',
+                                'Observação (dia/noite)',
+                                'Posição de tiro',
+                                'Camuflagem'
+                            ]},
+                            { title: 'Operações Anfíbias', topics: [
+                                'Tipos (assalto, incursão, retirada)',
+                                'Fases (planejamento → embarque → travessia → assalto)',
+                                'Transbordo',
+                                'Desembarque',
+                                'Conduta em terra'
+                            ]},
+                            { title: 'Operações Terrestres', topics: [
+                                'Ofensiva',
+                                'Defensiva',
+                                'Manobras táticas'
+                            ]},
+                            { title: 'Grupo de Combate e Esquadra de Tiro', topics: [
+                                'Organização',
+                                'Armamento',
+                                'Formações',
+                                'Sinais',
+                                'Combate ofensivo e defensivo'
+                            ]}
+                        ]
+                    }
+                ]
+            }
+        };
                         duration: '55 min',
                         videoId: 'dQw4w9WgXcQ',
                         description: 'Cálculo de volumes e áreas de sólidos geométricos.',
