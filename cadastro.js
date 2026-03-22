@@ -88,6 +88,15 @@
 
     applyCooldownFromStorage();
 
+    async function waitForSupabase() {
+        // Aguarda até 2 segundos pelo carregamento do SDK
+        for (let i = 0; i < 40; i++) {
+            if (window.supabase && window.SUPABASE_CONFIG) return true;
+            await new Promise(r => setTimeout(r, 50));
+        }
+        return false;
+    }
+
     form.addEventListener('submit', async function (event) {
         event.preventDefault();
 
@@ -156,7 +165,8 @@
         }
 
         // Cadastro via Supabase
-        if (!window.supabase || !window.SUPABASE_CONFIG) {
+        const ready = await waitForSupabase();
+        if (!ready) {
             showFeedback('Supabase não carregado. Tente recarregar a página.', 'danger');
             isSubmitting = false;
             setButtonState(false, 'Criar conta');
